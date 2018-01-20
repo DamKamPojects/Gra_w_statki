@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\obj\Debug\
+E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\obj\Release\
 Gra_w_statki
 none
 false
-DEBUG;TRACE
+TRACE
 E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\App.xaml
-2-114757256
+11151548125
 
-101006696898
+5-2017746502
 131569487696
-GameWindow.xaml;MainWindow.xaml;
+MainWindow.xaml;
 
 True
 

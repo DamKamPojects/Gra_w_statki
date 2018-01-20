@@ -45,12 +45,13 @@ namespace Gra_w_statki
                     HorizontalAlignment = HorizontalAlignment.Center,
                     Text = Convert.ToString(Convert.ToChar(64 + i)),
                     //FontSize = 20,
-                    Margin = new Thickness(1)
+                    Margin = new Thickness(0.5)
                 };
                 Grid.SetRow(textblocky, i);
                 Grid.SetColumn(textblocky, 0);
                 this.OurBoard.Children.Add(textblocky);
             }
+
             // tworzy buttony dynamicznie
             for (int i = 1; i < powt + 1; i++)
             {
@@ -59,6 +60,7 @@ namespace Gra_w_statki
                     Button guzik = new Button();
                     //guzik.Content = "x" + i + "y" + j;
                     guzik.Margin = new Thickness(1);
+                    guzik.Background = Brushes.White;
                     guzik.Name = "x" + i + "y" + j;
                     Grid.SetRow(guzik, i);
                     Grid.SetColumn(guzik, j);

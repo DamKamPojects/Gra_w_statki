@@ -13,3 +13,4 @@ E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\obj\Debug\Gra_w_statki.csproj.
 E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\obj\Debug\Gra_w_statki.csproj.CoreCompileInputs.cache
 E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\obj\Debug\Gra_w_statki.exe
 E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\obj\Debug\Gra_w_statki.pdb
+E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\obj\Debug\App.baml
