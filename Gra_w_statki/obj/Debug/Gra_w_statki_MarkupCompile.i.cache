@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\App.xaml
-2-114757256
+4-1748925420
 
-101006696898
+14-1270863204
 131569487696
-GameWindow.xaml;MainWindow.xaml;
+CreateMapPage.xaml;GameOptionsPage.xaml;GameWindowPage.xaml;MainWindow.xaml;
 
 True
 

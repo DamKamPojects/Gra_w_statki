@@ -10,6 +10,11 @@ namespace Gra_w_statki
     /// </summary>
     public partial class MainWindow : Window
     {
+        //inicjalizacja stron
+        GameOptionsPage gameOptions = new GameOptionsPage();
+        GameWindowPage gameWindow = new GameWindowPage();
+        CreateMapPage createMap = new CreateMapPage(10);
+
         public MainWindow()
         {
             InitializeComponent();
@@ -17,58 +22,22 @@ namespace Gra_w_statki
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var powt = 10;
-            //dodaje kolumny nowe
-            for (int i = 0; i < powt + 1; i++)
-            {
-                OurBoard.RowDefinitions.Add(new RowDefinition());
-                OurBoard.ColumnDefinitions.Add(new ColumnDefinition());
-            }
-
-            for (int i = 1; i < powt + 1; i++)
-            {
-                TextBlock textblockx = new TextBlock()
-                {
-                    VerticalAlignment = VerticalAlignment.Center,
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    Text = Convert.ToString(i),
-                    //FontSize = 20,
-                    Margin = new Thickness(1)
-                };
-                Grid.SetRow(textblockx, 0);
-                Grid.SetColumn(textblockx, i);
-                this.OurBoard.Children.Add(textblockx);
-
-                TextBlock textblocky = new TextBlock()
-                {
-                    VerticalAlignment = VerticalAlignment.Center,
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    Text = Convert.ToString(Convert.ToChar(64 + i)),
-                    //FontSize = 20,
-                    Margin = new Thickness(0.5)
-                };
-                Grid.SetRow(textblocky, i);
-                Grid.SetColumn(textblocky, 0);
-                this.OurBoard.Children.Add(textblocky);
-            }
-
-            // tworzy buttony dynamicznie
-            for (int i = 1; i < powt + 1; i++)
-            {
-                for (int j = 1; j < powt + 1; j++)
-                {
-                    Button guzik = new Button();
-                    //guzik.Content = "x" + i + "y" + j;
-                    guzik.Margin = new Thickness(1);
-                    guzik.Background = Brushes.White;
-                    guzik.Name = "x" + i + "y" + j;
-                    Grid.SetRow(guzik, i);
-                    Grid.SetColumn(guzik, j);
-                    this.OurBoard.Children.Add(guzik);
-                }
-            }            
+            WindowFrame.Content = gameOptions;
         }
 
+        private void GameWindowButton_Click(object sender, RoutedEventArgs e)
+        {
+            WindowFrame.Content = gameWindow;
+        }
 
+        private void GameOptionsButton_Click(object sender, RoutedEventArgs e)
+        {
+            WindowFrame.Content = gameOptions;
+        }
+
+        private void CreateMapButton_Click(object sender, RoutedEventArgs e)
+        {
+            WindowFrame.Content = createMap;
+        }
     }
 }

@@ -14,3 +14,9 @@ E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\obj\Debug\Gra_w_statki.csproj.
 E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\obj\Debug\Gra_w_statki.exe
 E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\obj\Debug\Gra_w_statki.pdb
 E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\obj\Debug\App.baml
+E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\obj\Debug\GameWindowPage.g.cs
+E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\obj\Debug\GameWindowPage.baml
+E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\obj\Debug\CreateMapPage.g.cs
+E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\obj\Debug\GameOptionsPage.g.cs
+E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\obj\Debug\CreateMapPage.baml
+E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\obj\Debug\GameOptionsPage.baml

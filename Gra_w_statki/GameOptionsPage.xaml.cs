@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace Gra_w_statki
 {
     /// <summary>
-    /// Interaction logic for GameWindow.xaml
+    /// Interaction logic for GameOptionsPage.xaml
     /// </summary>
-    public partial class GameWindow : Page
+    public partial class GameOptionsPage : Page
     {
-        public GameWindow()
+        public GameOptionsPage()
         {
             InitializeComponent();
-        }
-
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
