@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Gra_w_statki"
       mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="850"
+      d:DesignHeight="500" d:DesignWidth="800"
       Title="CreateMapPage">
 
     <Grid Background="White">
@@ -22,9 +22,14 @@
         <TextBlock Grid.ColumnSpan="2" Text="Utwórz swoją mapę statków, klikając odpowiednie pola na planszy:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" TextWrapping="Wrap" TextAlignment="Center"/>
 
         <!--Miejsce na utrzoenie planszy-->
-        <Grid Margin="10" x:Name="OurBoard" Grid.Column="1" Grid.Row="1">
-            
-        </Grid>
+        <!--<Grid Margin="10" x:Name="OurBoard" Grid.Column="1" Grid.Row="1" >
+            <Grid.ColumnDefinitions>
+                
+            </Grid.ColumnDefinitions>
+        </Grid>-->
+
+        <Frame x:Name="BoardFrame"  Grid.Column="1" Grid.Row="1" NavigationUIVisibility="Hidden" Margin="5"/>
+
 
         <!--Komorka inforujaca o statkach do postawienia-->
         <Grid Margin="8" Grid.Column="0" Grid.Row="1">

@@ -43,7 +43,7 @@ namespace Gra_w_statki
                     VerticalAlignment = VerticalAlignment.Center,
                     HorizontalAlignment = HorizontalAlignment.Center,
                     Text = Convert.ToString(i),
-                    Margin = new Thickness(1)
+                    Margin = new Thickness(0.2)
                 };
                 Grid.SetRow(xDescriptionBlock, 0);
                 Grid.SetColumn(xDescriptionBlock, i);
@@ -68,7 +68,7 @@ namespace Gra_w_statki
                 {
                     Button FieldButton = new Button();
                     //guzik.Content = "x" + i + "y" + j;
-                    FieldButton.Margin = new Thickness(1);
+                    FieldButton.Margin = new Thickness(0.2);
                     FieldButton.Background = Brushes.White;
                     FieldButton.Name = "x" + i + "y" + j;
                     FieldButton.ToolTip = Convert.ToString(FieldButton.Name);

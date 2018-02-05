@@ -47,7 +47,7 @@ namespace Gra_w_statki
             Button FieldButton = new Button()
             {
                 //Content = "x" + indexX + "y" + indexY,
-                Margin = new Thickness(ButtonMargin),
+                Margin = new Thickness(ButtonMargin, ButtonMargin, ButtonMargin, ButtonMargin),
                 Background = Brushes.White,
                 Name = "x" + indexX + "y" + indexY,
             };

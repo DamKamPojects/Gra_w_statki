@@ -1,0 +1,56 @@
+﻿<Page x:Class="Gra_w_statki.ConnectionPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Gra_w_statki"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="600"
+      Title="ConnectionPage">
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Dołącz do gry!" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48"/>
+
+        <!--Środek page'a-->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Adres IP-->
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0">
+                <TextBlock Text="IP Serwera" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="24"/>
+                <TextBox x:Name="IPAdress" Grid.Row="1" Grid.Column="0" Padding="2" Height="48" Margin="10 10 10 0 " TextAlignment="Center" FontSize="30" MinWidth="250" MaxLength="15"/>
+            </StackPanel>
+
+            <!--Numer portu-->
+            <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1">
+                <TextBlock  Grid.Column="1" Text="Port Serwera" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="24"/>
+                <TextBox x:Name="PortNumber" Grid.Row="1" Grid.Column="1" Padding="2" Height="48" Margin="10 10 10 0 " HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontSize="30" MinWidth="250" MaxLength="9"/>
+            </StackPanel>
+
+            
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0">
+                <TextBlock Text="Podaj imię gracza:" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"/>
+                <TextBox x:Name="PlayerName"  TextAlignment="Center" FontSize="30" Margin="0 10 0 10" Height="48" Padding="2" Width="280" MaxLength="12"/>
+            </StackPanel>
+
+            <Button x:Name="ConnectButton" Click="ConnectButton_Click" Grid.Row="1" Margin="20" Content="Połącz" FontSize="32" Width="300"/>
+        </Grid>
+    </Grid>
+</Page>

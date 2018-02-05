@@ -11,6 +11,7 @@
       >
     
     <Grid>
+
         <!--Definicja kolumn-->
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="5*"/>
@@ -21,6 +22,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
+
 
         <!--Nasza plansza-->
         <Border Padding="8" Background="#fff" Margin="10" Grid.Row="0" Grid.Column="0" Opacity="0.8">
