@@ -9,7 +9,7 @@ namespace Gra_w_statki
     //sluzy do tworzenia buttonow wypelniajacych pole oraz indeksow
     class CreateBoardsButton
     {
-        private double ButtonMargin = 0.2;
+        private double ButtonMargin = 0;
 
         //tworzy podpis osi X
         public TextBlock CreateTextBlock_X(int index)

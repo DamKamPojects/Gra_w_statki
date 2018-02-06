@@ -32,10 +32,10 @@
             <!--Header-->
             <Border Grid.ColumnSpan="2">
                 <DockPanel>
-                    <Button x:Name="GameWindowButton" Click="GameWindowButton_Click" Content="Game widnow"/>
+                    <!--<Button x:Name="GameWindowButton" Click="GameWindowButton_Click" Content="Game widnow"/>
                     <Button x:Name="GameOptionsButton" Click="GameOptionsButton_Click" Content="Game options button"/>
                     <Button x:Name="CreateMapButton" Click="CreateMapButton_Click" Content="Create Map button"/>
-                    <Button Content="kliknij" Click="Button_Click"/>
+                    <Button Content="kliknij" Click="Button_Click"/>-->
                     <TextBlock x:Name="Title" Text="Gra w statki" HorizontalAlignment="Center" FontSize="36" VerticalAlignment="Center"/>
                 </DockPanel>
                 

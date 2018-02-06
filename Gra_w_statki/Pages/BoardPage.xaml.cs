@@ -53,7 +53,6 @@ namespace Gra_w_statki
             {
                 Board.RowDefinitions.Add(new RowDefinition());
                 Board.ColumnDefinitions.Add(new ColumnDefinition());
-
             }
         }
 
@@ -91,7 +90,10 @@ namespace Gra_w_statki
         private void FieldButton_Click(object sender, RoutedEventArgs e)
         {
             int[] cordinates = GetButtonCordinates(((Button)sender).Name);
+            
             BoardFieldModification(cordinates);
+            CreateMapPage.CountShips(GetShipsAmount());
+
         }
         
         //II.wyciaga wartosc wspolrzednych dabego buttona
@@ -173,6 +175,12 @@ namespace Gra_w_statki
                         return Brushes.Navy;
                     }
             }
+        }
+
+        //pobiera ilości poszczególnych statków
+        public int[] GetShipsAmount()
+        {
+            return gameBoard.CountShips();
         }
 
     }

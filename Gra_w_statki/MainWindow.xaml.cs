@@ -21,7 +21,7 @@ namespace Gra_w_statki
         //inicjalizacja stron
         GameOptionsPage gameOptionsPage = new GameOptionsPage();
         GameWindowPage gameWindowPage = new GameWindowPage();
-        CreateMapPage createMapPage = new CreateMapPage(10);
+        CreateMapPage createMapPage = new CreateMapPage();
         ConnectionPage connectionPage = new ConnectionPage();
         WelcomePage welcomePage = new WelcomePage();
         WaitingPage waitingPage = new WaitingPage();
@@ -98,40 +98,6 @@ namespace Gra_w_statki
             ChangeCurrentPage(0);
         }
         
-
-        private void GameWindowButton_Click(object sender, RoutedEventArgs e)
-        {
-            WindowFrame.Content = gameWindowPage;
-
-
-        }
-
-        private void GameOptionsButton_Click(object sender, RoutedEventArgs e)
-        {
-            WindowFrame.Content = gameOptionsPage;
-        }
-
-        private void CreateMapButton_Click(object sender, RoutedEventArgs e)
-        {
-            WindowFrame.Content = createMapPage;
-        }
-
-
-
-
-        //testowy
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Test();
-        }
-
-
-
-        private void Test()
-        {
-            DependencyObject dependencyObject = Content as DependencyObject;
-            Button button = LogicalTreeHelper.FindLogicalNode(dependencyObject, "x2y2") as Button;
-            button.Content = "dziala!";
-        }
+               
     }
 }

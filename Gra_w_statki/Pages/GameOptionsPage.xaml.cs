@@ -12,8 +12,10 @@ namespace Gra_w_statki
     {
         //zmienne
         private int[] _eachShipAmount = new int[6]; //od lewej:  1 2 3 4 5 6 masztowiec
-        private int _boardSize;
+        private int _boardSize; //wybrany rozmiar planszy
 
+
+        //konstuktory
         public GameOptionsPage()
         {
             InitializeComponent();
@@ -21,21 +23,22 @@ namespace Gra_w_statki
             ShowAvailableShips();
         }
 
+
         //przyciski
         private void PlayButton_Click(object sender, System.Windows.RoutedEventArgs e)
         {
+            CreateMapPage.CreateNewMap(_boardSize, _eachShipAmount);
             MainWindow.ChangeCurrentPage(30);
         }
 
-
-
-
-
-        //test pokazywania ilosci stakow
-        int[] tablica = new int[6] { 1, 2, 3, 1, 5, 1};
+        private void RadioButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            GetShipsAmountAndBoardSize();
+        }
 
 
         //metody
+        //pobiera wartosc rozmiaru planszy oraz ilosci poszczegolnych statkow
         private void GetShipsAmountAndBoardSize()
         {
             if (rb_Size6.IsChecked==true)
@@ -46,27 +49,27 @@ namespace Gra_w_statki
             else if (rb_Size8.IsChecked == true)
             {
                 _eachShipAmount = new int[] { 3, 3, 1, 0, 0, 0 };
-                _boardSize = 6;
+                _boardSize = 8;
             }
             else if (rb_Size10.IsChecked == true)
             {
                 _eachShipAmount = new int[] { 4, 3, 2, 1, 0, 0 };
-                _boardSize = 6;
+                _boardSize = 10;
             }
             else if (rb_Size12.IsChecked == true)
             {
                 _eachShipAmount = new int[] { 4, 3, 2, 2, 1, 0 };
-                _boardSize = 6;
+                _boardSize = 12;
             }
             else if (rb_Size14.IsChecked == true)
             {
                 _eachShipAmount = new int[] { 5, 4, 3, 3, 2, 0 };
-                _boardSize = 6;
+                _boardSize = 14;
             }
             else if (rb_Size16.IsChecked == true)
             {
                 _eachShipAmount = new int[] { 6, 5, 4, 3, 2, 1 };
-                _boardSize = 6;
+                _boardSize = 16;
             }
 
             //warunek sprawdzajacy radiobutony z iloscia statkow
@@ -86,7 +89,7 @@ namespace Gra_w_statki
             ShowAvailableShips();
         }
 
-
+        //metoda tworzaca stakpanele pokazujce ilosc statkow wybranego trybu gry
         private void ShowAvailableShips()
         {
             AvailableShipsStackPanel.Children.Clear(); //czyszczenie stackpanela
@@ -127,9 +130,6 @@ namespace Gra_w_statki
             }
         }
 
-        private void RadioButton_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            GetShipsAmountAndBoardSize();
-        }
+     
     }
 }
