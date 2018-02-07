@@ -54,7 +54,7 @@
                 <!--6x6-->
                 <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock FontSize="30" TextAlignment="Center" Text="6x6" />
-                    <RadioButton Click="RadioButton_Click" x:Name="rb_Size6" GroupName="BoardSize" Width="14"/>
+                    <RadioButton Click="RadioButton_Click" x:Name="rb_Size6" GroupName="BoardSize" Width="14" IsChecked="True"/>
                 </StackPanel>
 
                 <!--8x8-->
@@ -66,7 +66,7 @@
                 <!--10x10-->
                 <StackPanel Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center">
                     <TextBlock FontSize="30" TextAlignment="Center" Text="10x10" />
-                    <RadioButton Click="RadioButton_Click" x:Name="rb_Size10" GroupName="BoardSize" Width="14" IsChecked="True"/>
+                    <RadioButton Click="RadioButton_Click" x:Name="rb_Size10" GroupName="BoardSize" Width="14" IsChecked="False"/>
                 </StackPanel>
 
                 <!--12x12-->

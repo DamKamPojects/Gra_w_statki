@@ -1,0 +1,120 @@
+﻿<Page x:Class="Gra_w_statki.LobbyPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Gra_w_statki"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="800"
+      Title="LobbyPage">
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Poczekalnia" HorizontalAlignment="Center" FontSize="36"/>
+
+            <!--Wewnetrzna czesc okna-->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Nasza plansza-->
+            
+
+            <Rectangle Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" Margin="5" Stroke="Black"/>
+
+            <!--Prawa komorka-->
+            <Grid Grid.Column="1" Grid.Row="1" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>                   
+                </Grid.RowDefinitions>
+
+                <Frame x:Name="LobbyBoardFrame"  Grid.Column="1" Grid.Row="1" NavigationUIVisibility="Hidden" Margin="5 5 10 10"/>
+
+                <TextBlock Margin="5" FontSize="24" Grid.Row="0" Text="  Twoja plansza:" HorizontalAlignment="Center"/>
+            </Grid>
+            
+            <!--Lewa komorka-->
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+
+                <Rectangle Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Margin="5" Stroke="Black"/>
+                <Rectangle Grid.Row="3" Grid.Column="0" Grid.RowSpan="2" Margin="5 5 5 0" Stroke="Black"/>
+
+                <TextBlock Margin="5" FontSize="24" Grid.Row="0" Text="Informacje o grze" HorizontalAlignment="Center"/>
+                
+
+
+                <!--Grid z ifnormacjami o grze-->
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Margin="5" FontSize="18" Grid.Row="0" Text="Rozmiar planszy:" HorizontalAlignment="Center"/>
+                        <TextBlock x:Name="tb_boardSize" Margin="5" FontSize="24" Grid.Row="0" Text="10x10" HorizontalAlignment="Center" FontWeight="Bold"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <TextBlock Margin="5" FontSize="18" Grid.Row="0" Text="Ilość statków:" HorizontalAlignment="Center"/>
+                        <TextBlock x:Name="tb_shipsAmount" Margin="5" FontSize="24" Grid.Row="0" Text="Średnia" HorizontalAlignment="Center" FontWeight="Bold"/>
+                    </StackPanel>                    
+                </Grid>
+
+                <Button x:Name="ChangeMap" Click="ChangeMap_Click" Margin="30 6 30 6" Content="Zmień rozstawienie okrętów" FontSize="24" Grid.Row="2" Background="AliceBlue"/>
+
+                <TextBlock Margin="5" FontSize="24" Grid.Row="3" Text="Informacje o graczach" HorizontalAlignment="Center"/> 
+                
+                <!--Gotowosc graczy-->
+                <Grid Grid.Row="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.8*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--Gracz 1-->
+                    <TextBlock Margin="5" FontSize="24" Grid.Row="0" Text="1." HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <TextBlock Grid.Row="0" Grid.Column="1" x:Name="Player1Name" Margin="5" FontSize="22" Text="Andrzej" HorizontalAlignment="Center" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="0" Grid.Column="2" x:Name="Player1Status" Margin="5" FontSize="22" Text="Gotowy" HorizontalAlignment="Center" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <Ellipse x:Name="Player1StausCircle" Grid.Row="0" Grid.Column="3" Margin="5" Width="40" Height="40" Fill="DarkGreen"/>
+
+                    <!--Gracz 2-->
+                    <TextBlock Margin="5" FontSize="24" Grid.Row="1" Text="2." HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                    <TextBlock Grid.Row="1" Grid.Column="1" x:Name="Player2Name" Margin="5" FontSize="22" Text="Stefan" HorizontalAlignment="Center" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="1" Grid.Column="2" x:Name="Player2Status" Margin="5" FontSize="22" Text="Niegotowy" HorizontalAlignment="Center" FontWeight="Bold" VerticalAlignment="Center"/>
+                    <Ellipse x:Name="Player2StausCircle" Grid.Row="1"  Margin="5"  Grid.Column="3" Width="40" Height="40" Fill="DarkRed"/>
+
+
+
+                </Grid>
+
+
+                <Button x:Name="PlayButton" Click="PlayButton_Click" Margin="10" Content="Graj!" FontSize="32" Grid.Row="5" Background="AliceBlue"/>
+            </Grid>
+
+            
+        </Grid>
+    </Grid>
+</Page>

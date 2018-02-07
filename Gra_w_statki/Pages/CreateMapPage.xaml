@@ -8,7 +8,7 @@
       d:DesignHeight="500" d:DesignWidth="800"
       Title="CreateMapPage">
 
-    <Grid Background="White">
+    <Grid Background="White" x:Name="MainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="4*"/>
@@ -19,7 +19,8 @@
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.ColumnSpan="2" Text="Utwórz swoją mapę statków, klikając odpowiednie pola na planszy:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" TextWrapping="Wrap" TextAlignment="Center" Margin="5"/>
+        <!--<TextBlock Grid.ColumnSpan="2" Text="Utwórz swoją mapę statków, klikając odpowiednie pola na planszy:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" TextWrapping="Wrap" TextAlignment="Center" Margin="5"/>-->
+        <Frame x:Name="dupa" Width="200" Height="40"/>
 
         <Rectangle Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" Margin="5" Stroke="Black"/>
 
@@ -39,7 +40,7 @@
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="3*"/>
-                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1.5*"/>
             </Grid.RowDefinitions>
 
             <TextBlock Grid.Row="0" Text="Statki do rozstawienia:" TextAlignment="Center" FontSize="24" TextWrapping="Wrap"/>
@@ -78,7 +79,21 @@
                 </Grid.RowDefinitions>                
             </Grid>
 
-            <Button Grid.Row="4" Margin="8" Background="AliceBlue" Content="Resetuj ustawienie statków"/>
+            <Grid Grid.Row="4">
+                <!--<Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>-->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="ResetButton" Click="ResetButton_Click" Grid.Row="0" Margin="20 8 20 8" Background="AliceBlue" Content="Resetuj ustawienie statków" />
+                <Button x:Name="ConfirmButton" Click="ConfirmButton_Click"  Grid.Row="1" Margin="8" Background="AliceBlue" Content="Zatwierdź rozstawienie statków" />
+                
+                
+            </Grid>
+            
 
 
 

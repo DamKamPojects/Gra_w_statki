@@ -13,18 +13,18 @@ namespace Gra_w_statki
         public MainWindow()
         {
             InitializeComponent();
-
             //inicjalizacja eventów
             EventChangeCurrentPage += new EventHandler(_changeCurrentPage);
         }
 
         //inicjalizacja stron
         GameOptionsPage gameOptionsPage = new GameOptionsPage();
-        GameWindowPage gameWindowPage = new GameWindowPage();
         CreateMapPage createMapPage = new CreateMapPage();
         ConnectionPage connectionPage = new ConnectionPage();
         WelcomePage welcomePage = new WelcomePage();
         WaitingPage waitingPage = new WaitingPage();
+        LobbyPage lobbyPage = new LobbyPage();
+        GameWindowPage gameWindowPage = new GameWindowPage();
 
         //deklaracja eventów
         public static event EventHandler EventChangeCurrentPage; //event obslugujacy zawartosc strony
@@ -64,7 +64,12 @@ namespace Gra_w_statki
                         }
                     case 40:
                         {
-                            WindowFrame.Content = gameWindowPage;
+                            WindowFrame.Content = lobbyPage;
+                            break;
+                        }
+                    case 50:
+                        {
+                            WindowFrame.Content=gameWindowPage;
                             break;
                         }
                     default:
@@ -83,21 +88,20 @@ namespace Gra_w_statki
         }
         public static void ChangeCurrentPage(int pageIndex)
         {
-            if (EventChangeCurrentPage!=null)
-            {
-                EventChangeCurrentPage(pageIndex, new EventArgs());
-            }
+            EventChangeCurrentPage?.Invoke(pageIndex, new EventArgs());
         }        
 
-
-
+        
 
         //załadowanie okna aplikacji
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             ChangeCurrentPage(0);
         }
-        
-               
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

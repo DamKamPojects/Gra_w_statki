@@ -13,7 +13,7 @@ namespace Gra_w_statki
         //zmienne
         private int[] _eachShipAmount = new int[6]; //od lewej:  1 2 3 4 5 6 masztowiec
         private int _boardSize; //wybrany rozmiar planszy
-
+        private string _shipAmountComment;
 
         //konstuktory
         public GameOptionsPage()
@@ -25,13 +25,14 @@ namespace Gra_w_statki
 
 
         //przyciski
-        private void PlayButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void PlayButton_Click(object sender, RoutedEventArgs e)
         {
             CreateMapPage.CreateNewMap(_boardSize, _eachShipAmount);
+            LobbyPage.GetGameOptions(_eachShipAmount, _boardSize, _shipAmountComment);
             MainWindow.ChangeCurrentPage(30);
         }
 
-        private void RadioButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        private void RadioButton_Click(object sender, RoutedEventArgs e)
         {
             GetShipsAmountAndBoardSize();
         }
@@ -74,9 +75,10 @@ namespace Gra_w_statki
 
             //warunek sprawdzajacy radiobutony z iloscia statkow
             int k;
-            if (rb_little.IsChecked == true) k = -1;
-            else if (rb_many.IsChecked == true) k = 1;
-            else k = 0;
+
+            if (rb_little.IsChecked == true) { k = -1; _shipAmountComment = "Mało"; }
+            else if (rb_many.IsChecked == true) { k = 1; _shipAmountComment = "Dużo"; }
+            else { k = 0; _shipAmountComment = "Średnio"; }
 
             for (int i = 0; i < _eachShipAmount.Length; i++)
             {

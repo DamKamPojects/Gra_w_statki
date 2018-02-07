@@ -5,89 +5,57 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Gra_w_statki"
       mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="800"
-      Title="GameWindowPage"
-      Loaded="GameWindow_Loaded"
-      >
-    
-    <Grid>
+      d:DesignHeight="500" d:DesignWidth="800"
+      Title="GameWindowPage">
 
-        <!--Definicja kolumn-->
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5*"/>
-            <ColumnDefinition Width="5*"/>
-        </Grid.ColumnDefinitions>
-
-        <!--Definicja wieszy-->
+    <Grid Background="White">
         <Grid.RowDefinitions>
-            <RowDefinition Height="5*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
+        <TextBlock Text="Bitwa!" HorizontalAlignment="Center" FontSize="36"/>
 
-        <!--Nasza plansza-->
-        <Border Padding="8" Background="#fff" Margin="10" Grid.Row="0" Grid.Column="0" Opacity="0.8">
+        <!--Wewnetrzna czesc okna-->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="4*"/>
+            </Grid.ColumnDefinitions>
+
+            <!--Nasza plansza-->
+            <Frame x:Name="BoardFrame"  Grid.Column="1" Grid.Row="1" NavigationUIVisibility="Hidden" Margin="5 5 10 10"/>
+
+            <Rectangle Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" Margin="5" Stroke="Black"/>
+            <Rectangle Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" Margin="5" Stroke="Black"/>
+
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
-                    <RowDefinition Height="4*"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="7*"/>
+                    <RowDefinition Height="2*"/>
                 </Grid.RowDefinitions>
 
-                <!--Podpis jakie statki nam pozostały-->
-                <TextBlock Text="Twoje niezatopione okręty:" Grid.Column="0" Grid.Row="2" TextAlignment="Center"/>
 
-                <!--Podpis do naszej planszy-->
-                <TextBlock FontSize="16" Text="Twoja plansza:" Grid.Column="0" Grid.Row="0" TextAlignment="Center"/>
+                <TextBlock Margin="5" FontSize="24" Grid.Row="0" Text="Gracz" HorizontalAlignment="Center"/>
 
-                <!--Bedzie to nasza plansza, generowana z poziomu kodu-->
-                <Grid Margin="5" x:Name="OurBoard" Grid.Column="1" Grid.Row="1">
+                <Frame x:Name="OurBoardFrame"  Grid.Column="1" Grid.Row="1" NavigationUIVisibility="Hidden" Margin="10 5 10 10"/>
 
+                <Grid Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Margin="2" FontSize="16" Grid.Row="0" Text="Pozostałe niezatopione okręty:" HorizontalAlignment="Center"/> 
+                    <StackPanel x:Name="OurShipsStackPanel" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal"/>
                 </Grid>
+                
 
-                <!--Komorka pokazujaca jakie statki nam pozostały, docelowoo moze tu byc wrappanel bądx listviev, pokazujacy po prostu jakie statki nam pozostały-->
-                <WrapPanel Grid.Column="0" Grid.Row="3" VerticalAlignment="Center">
-                    <TextBlock FontSize="16" Text="4 masztowce:   1 "/>
-                    <TextBlock FontSize="16" Text="3 masztowce:   2 "/>
-                    <TextBlock FontSize="16" Text="2 masztowce:   3 "/>
-                    <TextBlock FontSize="16" Text="1 masztowce:   4 "/>
-                </WrapPanel>
             </Grid>
-        </Border>
+        </Grid>
 
-
-        <!--Wroga plansza-->
-        <Border Padding="8" Background="#c99" Margin="5" Grid.Row="0" Grid.Column="1">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="2*"/>
-                </Grid.ColumnDefinitions>
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-
-                <!--Podpis jakie statki nam pozostały-->
-                <TextBlock Text="Wroga niezatopione okręty:" Grid.Column="0" Grid.Row="0" TextAlignment="Center"/>
-
-                <!--Podpis do naszej planszy-->
-                <TextBlock Text="Plansza Wro:" Grid.Column="1" Grid.Row="0" TextAlignment="Center"/>
-
-                <!--Bedzie to nasza plansza, generowana z poziomu kodu-->
-                <Grid Margin="5" x:Name="EnemyBoard" Grid.Column="1" Grid.Row="1">
-
-                </Grid>
-
-                <!--Komorka pokazujaca jakie statki nam pozostały, docelowoo moze tu byc wrappanel bądx listviev, pokazujacy po prostu jakie statki nam pozostały-->
-                <StackPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Center">
-                    <TextBlock FontSize="16" Text="4 masztowce:   1 "/>
-                    <TextBlock FontSize="16" Text="3 masztowce:   2 "/>
-                    <TextBlock FontSize="16" Text="2 masztowce:   3 "/>
-                    <TextBlock FontSize="16" Text="1 masztowce:   4 "/>
-                </StackPanel>
-            </Grid>
-        </Border>
+        <Button Content="Poddaj się" Grid.Row="2" Margin="5" Width="200" Height="20"/>
     </Grid>
 </Page>
