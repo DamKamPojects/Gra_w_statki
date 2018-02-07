@@ -23,12 +23,14 @@ namespace Gra_w_statki
         //zmienne
         private int[] _eachShipAmount;
         private BoardPage _ourBoard;
-        private BoardPage _enemyBoard;
+        private EnemyBoardPage _enemyBoard;
 
+        //eventy do przeszyłania danych pomiedzy oknami
         private static event EventHandler EventGetPlayerBoard;
         private static event EventHandler EventGetShipAmount;
         private static event EventHandler EventGetRemainingShipAmount;
 
+        //private static event EventHandler EventCheckFieldHit; //sluzy do sprawdzania trafienia
 
         public GameWindowPage()
         {
@@ -47,10 +49,25 @@ namespace Gra_w_statki
             EventGetPlayerBoard?.Invoke(ourBoard, new EventArgs());
         }
 
+        private void _getPlayerBoard(object sender, EventArgs e)
+        {
+            _ourBoard = (BoardPage)sender;
+            OurBoardFrame.Content = _ourBoard;
+            _enemyBoard = new EnemyBoardPage(_ourBoard.BoardSize);
+            EnemyBoardFrame.Content = _enemyBoard;
+        }        
+        
+
         //2 event
         public static void GetShipAmount(int[] eachShipAmount)
         {
             EventGetShipAmount?.Invoke(eachShipAmount, new EventArgs());
+        }
+
+        private void _getShipAmount(object sender, EventArgs e)
+        {
+            _eachShipAmount = (int[])sender;
+            _showAvailableShips(_eachShipAmount, new EventArgs());
         }
 
         //3 event
@@ -59,27 +76,12 @@ namespace Gra_w_statki
             EventGetRemainingShipAmount?.Invoke(remainingShips,new EventArgs());
         }
 
-
-
-        //1 event - meotda
-        private void _getPlayerBoard(object sender, EventArgs e)
-        {
-            _ourBoard = (BoardPage)sender;
-            OurBoardFrame.Content = _ourBoard;
-        }        
-        
-        //2 event - metoda
-        private void _getShipAmount(object sender, EventArgs e)
-        {
-            _eachShipAmount = (int[])sender;
-            _showAvailableShips(_eachShipAmount, new EventArgs());
-        }
-
-        //3 event - metody
-        private void _showAvailableShips(object sender, EventArgs e)
+        public void _showAvailableShips(object sender, EventArgs e)
         {
             OurShipsStackPanel.Children.Clear(); //czyszczenie stackpanela
 
+            int[] remainingShips = _ourBoard.GetRemainingShipsAmount();
+            
             for (int i = 0; i < 6; i++)
             {
                 if (_eachShipAmount[i] != 0) //to oznacza że jest jakiś statek danego rodzaju
@@ -102,7 +104,7 @@ namespace Gra_w_statki
                     };
                     TextBlock ShipAmount = new TextBlock()
                     {
-                        Text = Convert.ToString(_eachShipAmount[i]),
+                        Text = Convert.ToString(remainingShips[i]),
                         FontSize = 20,
                         TextAlignment = TextAlignment.Center
                     };
@@ -117,6 +119,12 @@ namespace Gra_w_statki
         }
 
 
+        //metoda sprawdzajaca czy trafiono statek
+        public int CheckFieldHit(int[] cordinates)
+        {
+            return _ourBoard.CheckField(cordinates);
+        }
+        
 
     }
 }

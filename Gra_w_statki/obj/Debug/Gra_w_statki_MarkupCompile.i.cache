@@ -1,0 +1,20 @@
+﻿Gra_w_statki
+
+
+winexe
+C#
+.cs
+E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\obj\Debug\
+Gra_w_statki
+none
+false
+DEBUG;TRACE
+E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\App.xaml
+12560701977
+
+231044372497
+131569487696
+EnemyBoardPage.xaml;Pages\GameWindowPage.xaml;LobbyPage.xaml;Pages\BoardPage.xaml;Pages\ConnectionPage.xaml;Pages\CreateMapPage.xaml;Pages\GameOptionsPage.xaml;MainWindow.xaml;Pages\WelcomePage.xaml;Pages\WaitingPage.xaml;SerwerConnectionPage.xaml;SerwerOrClientPage.xaml;
+
+True
+

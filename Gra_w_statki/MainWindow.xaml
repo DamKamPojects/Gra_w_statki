@@ -37,6 +37,8 @@
                 
                 <Button Click="Button_Click" Height="20" Margin="2" Content="SPrawdz"/>
 
+                <TextBlock x:Name="cos" Background="Aquamarine"/>
+
 
             </StackPanel>
 

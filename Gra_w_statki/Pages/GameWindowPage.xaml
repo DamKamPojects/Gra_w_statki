@@ -50,9 +50,30 @@
 
                     <TextBlock Margin="2" FontSize="16" Grid.Row="0" Text="Pozostałe niezatopione okręty:" HorizontalAlignment="Center"/> 
                     <StackPanel x:Name="OurShipsStackPanel" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal"/>
-                </Grid>
-                
+                </Grid>    
+            </Grid>
 
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="7*"/>
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+
+
+                <TextBlock Margin="5" FontSize="24" Grid.Row="0" Text="Przeciwnik" HorizontalAlignment="Center"/>
+
+                <Frame x:Name="EnemyBoardFrame"  Grid.Column="1" Grid.Row="1" NavigationUIVisibility="Hidden" Margin="10 5 10 10"/>
+
+                <Grid Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Margin="2" FontSize="16" Grid.Row="0" Text="Pozostałe niezatopione okręty:" HorizontalAlignment="Center"/>
+                    <StackPanel x:Name="EnemyShipsStackPanel" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal"/>
+                </Grid>
             </Grid>
         </Grid>
 

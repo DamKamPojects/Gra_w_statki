@@ -15,6 +15,7 @@ namespace Gra_w_statki
             InitializeComponent();
             //inicjalizacja eventów
             EventChangeCurrentPage += new EventHandler(_changeCurrentPage);
+            EventSendClickCordinates += new EventHandler(_sendClickCordinates);
         }
 
         //inicjalizacja stron
@@ -28,6 +29,7 @@ namespace Gra_w_statki
 
         //deklaracja eventów
         public static event EventHandler EventChangeCurrentPage; //event obslugujacy zawartosc strony
+        
         
 
         //metoda wywoływana przez event do zmiany zawartocsi strony
@@ -90,9 +92,7 @@ namespace Gra_w_statki
         {
             EventChangeCurrentPage?.Invoke(pageIndex, new EventArgs());
         }        
-
-        
-
+                
         //załadowanie okna aplikacji
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -101,7 +101,25 @@ namespace Gra_w_statki
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            int[] cordinates = new int[2] {Convert.ToInt32(X.Text), Convert.ToInt32(Y.Text)};
+            
+            cos.Text=gameWindowPage.CheckFieldHit(cordinates)+"ss";
+            gameWindowPage._showAvailableShips(null, new EventArgs());
+        }
 
+
+
+        private static event EventHandler EventSendClickCordinates;
+
+        public static void SendClickCordinates(string cordinates)
+        {
+            EventSendClickCordinates?.Invoke(cordinates, new EventArgs());
+        }
+
+        private void _sendClickCordinates(object sender, EventArgs e)
+        {
+            cos.Text = (string)sender;
+            //tu dostajemy kordynaty klikniecia
         }
     }
 }

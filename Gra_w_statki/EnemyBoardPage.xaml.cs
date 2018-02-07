@@ -16,38 +16,40 @@ using System.Windows.Shapes;
 namespace Gra_w_statki
 {
     /// <summary>
-    /// Interaction logic for BoardPage.xaml
+    /// Interaction logic for EnemyBoardPage.xaml
     /// </summary>
-    public partial class BoardPage : Page
+    public partial class EnemyBoardPage : Page
     {
+        
         //zmienne
         GameBoard gameBoard;
-        public bool CanBeChanged = true;
-        public int BoardSize;
+        private int _boardSize;
         private int[] EachShipAmount;
-
-        public BoardPage()
+        public bool CanSendCordinates = true;
+        
+        public EnemyBoardPage(int dimension)
         {
             InitializeComponent();
-        }
-
-        public BoardPage(int dimension)
-        {
-            InitializeComponent();
-            BoardSize = dimension;
+            _boardSize = dimension;
 
             CreateEmptyGrid();
             FillGridWIthButtons();
 
-            gameBoard= new GameBoard(dimension);
+            gameBoard = new GameBoard(dimension);
         }
 
-        
+        public EnemyBoardPage()
+        {
+            InitializeComponent();
+        }
+
+
+
         #region Tworzenie siatki z przyciskami
         //metoda tworzaca pustego grida w zaleznosci od rozmiaru planszy
         private void CreateEmptyGrid()
         {
-            for (int i = 0; i < BoardSize + 1; i++)
+            for (int i = 0; i < _boardSize + 1; i++)
             {
                 Board.RowDefinitions.Add(new RowDefinition());
                 Board.ColumnDefinitions.Add(new ColumnDefinition());
@@ -61,7 +63,7 @@ namespace Gra_w_statki
             CreateBoardsButton FillBoard = new CreateBoardsButton();
 
             //stworzenie oznaczen osi
-            for (int i = 1; i < BoardSize + 1; i++)
+            for (int i = 1; i < _boardSize + 1; i++)
             {
                 //opisanie osi poziomej - x
                 this.Board.Children.Add(FillBoard.CreateTextBlock_X(i));
@@ -72,9 +74,9 @@ namespace Gra_w_statki
 
 
             // utworzenie buttonow
-            for (int i = 1; i < BoardSize + 1; i++)
+            for (int i = 1; i < _boardSize + 1; i++)
             {
-                for (int j = 1; j < BoardSize + 1; j++)
+                for (int j = 1; j < _boardSize + 1; j++)
                 {
                     Button FieldButton = FillBoard.CreateButton(i, j);
                     FieldButton.Click += FieldButton_Click;
@@ -88,15 +90,13 @@ namespace Gra_w_statki
         //I.metoda dotyczaca klikniecia przycisku
         private void FieldButton_Click(object sender, RoutedEventArgs e)
         {
-            if (CanBeChanged==true)
+            if (CanSendCordinates == true)
             {
-                int[] cordinates = GetButtonCordinates(((Button)sender).Name);
-
-                BoardFieldModification(cordinates);
-                CreateMapPage.CountShips(GetShipsAmount());
-            }            
+                //int[] cordinates = GetButtonCordinates(((Button)sender).Name);  
+                MainWindow.SendClickCordinates(((Button)sender).Name);
+            }
         }
-        
+
         //II.wyciaga wartosc wspolrzednych dabego buttona
         private int[] GetButtonCordinates(string name)
         {
@@ -113,12 +113,12 @@ namespace Gra_w_statki
         {
             Stack<SingleField> ChangesStack = gameBoard.ChangeFieldValue(cordinates);
 
-            while(ChangesStack.Count !=0)
+            while (ChangesStack.Count != 0)
             {
                 SingleField element = ChangesStack.Pop();
 
                 ChangeButtonColor(element);
-                
+
             }
         }
 
@@ -134,14 +134,6 @@ namespace Gra_w_statki
                 Button button = LogicalTreeHelper.FindLogicalNode(dependencyObject, buttonName) as Button;
                 button.Background = GetButtonColor(element.Value);
                 button.Content = Convert.ToString(element.Value);
-                //if (element.Value==0 || element.Value==1)
-                //{
-                //    button.IsEnabled = true;
-                //}
-                //else
-                //{
-                //    button.IsEnabled = false;
-                //}
             }
             catch (Exception)
             {
@@ -163,7 +155,7 @@ namespace Gra_w_statki
         //metoda zwracajaca kolor dla przyciskow w zaleznosci od wartosci pola
         private SolidColorBrush GetButtonColor(int k)
         {
-            switch(k)
+            switch (k)
             {
                 case 0:
                     {
@@ -177,22 +169,6 @@ namespace Gra_w_statki
                     {
                         return Brushes.Orange;
                     }
-                //case -1:
-                //    {
-                //        return Brushes.DarkGray;
-                //    }
-                //case -2:
-                //    {
-                //        return Brushes.DimGray;
-                //    }
-                //case -3:
-                //    {
-                //        return Brushes.DarkSlateBlue;
-                //    }
-                //case -4:
-                //    {
-                //        return Brushes.Black;
-                //    }
                 case 5: //oznacza że statek został trafiony
                     {
                         return Brushes.DarkRed;
@@ -200,11 +176,7 @@ namespace Gra_w_statki
 
                 default:
                     {
-                        if (CanBeChanged==false)
-                        {
-                            return Brushes.White;
-                        }
-                        else return Brushes.Silver;
+                         return Brushes.White;                       
                     }
             }
         }
@@ -214,12 +186,6 @@ namespace Gra_w_statki
         {
             return gameBoard.CountShips();
         }
-
-        public int[] GetRemainingShipsAmount()
-        {
-            return gameBoard.CountDestroyedShips();
-        }
-               
 
         public int CheckField(int[] cordinates)
         {
@@ -235,5 +201,8 @@ namespace Gra_w_statki
 
             return FieldValue;
         }
+
     }
+
+
 }
