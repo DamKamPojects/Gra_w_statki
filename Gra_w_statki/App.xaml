@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:Gra_w_statki"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ImageBrush x:Key="AplicationBackground" ImageSource="/ImageResources/ship_background.jpg" Opacity="1"/>
     </Application.Resources>
 </Application>

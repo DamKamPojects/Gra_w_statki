@@ -1,0 +1,88 @@
+﻿<Page x:Class="Gra_w_statki.CreateMapPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Gra_w_statki"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="800"
+      Title="CreateMapPage">
+
+    <Grid Background="White">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.ColumnSpan="2" Text="Utwórz swoją mapę statków, klikając odpowiednie pola na planszy:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36" TextWrapping="Wrap" TextAlignment="Center" Margin="5"/>
+
+        <Rectangle Grid.Row="1" Grid.Column="1" Grid.RowSpan="3" Margin="5" Stroke="Black"/>
+
+        <!--Miejsce na utrzoenie planszy-->
+        <!--<Grid Margin="10" x:Name="OurBoard" Grid.Column="1" Grid.Row="1" >
+            <Grid.ColumnDefinitions>
+                
+            </Grid.ColumnDefinitions>
+        </Grid>-->
+
+        <Frame x:Name="BoardFrame"  Grid.Column="1" Grid.Row="1" NavigationUIVisibility="Hidden" Margin="5 5 10 10"/>
+
+
+        <!--Komorka inforujaca o statkach do postawienia-->
+        <Grid Margin="5" Grid.Column="0" Grid.Row="1" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Statki do rozstawienia:" TextAlignment="Center" FontSize="24" TextWrapping="Wrap"/>
+
+            <Rectangle Grid.Row="0" Grid.RowSpan="3" Margin="0" Stroke="Black"/>
+            
+            <!--Tu beda umieszone ikonki statków-->
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Margin="2" Text="Rodzaj statku:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" TextWrapping="Wrap" TextAlignment="Center"/>
+
+                <TextBlock Margin="2" Grid.Column="1" Text="Ilość:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" TextWrapping="Wrap" TextAlignment="Center"/>
+
+                <TextBlock Margin="2" Grid.Column="2" Text="Roztawiono:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" TextWrapping="Wrap" TextAlignment="Center"/>
+
+                <TextBlock Margin="2" Grid.Column="3" Text="Pozostało:" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" TextWrapping="Wrap" TextAlignment="Center"/>
+            </Grid>
+            
+            <Grid ShowGridLines="true" Grid.Row="2" Background="#ccc" Margin="3"  x:Name="ShipAmountInfoGrid">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>                
+            </Grid>
+
+            <Button Grid.Row="4" Margin="8" Background="AliceBlue" Content="Resetuj ustawienie statków"/>
+
+
+
+
+        </Grid>
+    </Grid>
+</Page>

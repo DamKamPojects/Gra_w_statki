@@ -5,133 +5,72 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Gra_w_statki"
         mc:Ignorable="d"
-        Title="Gra w statki" Height="700" Width="1000"
+        Title="Gra w statki" Height="700" Width="1100"
         MinHeight="600"
         MinWidth="600"
         Loaded="Window_Loaded"
-        WindowStartupLocation="CenterScreen"
+        WindowStartupLocation="CenterScreen"  
         >
-    
-    <Border Margin="20">
-        <Grid>
+
+    <Border Padding="20">
+        <Border.Background>
+            <ImageBrush ImageSource="/ImageResources/ship_background.jpg" Opacity="0.6"/>
+        </Border.Background>
+        
+        <Grid>            
             <!--Najpierw tworzymy wiersz naglowka i glownej czesci programu-->
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
-                <RowDefinition Height="20*"/>
+                <RowDefinition Height="10*"/>
             </Grid.RowDefinitions>
-            
-            <!--Header-->
-            <TextBlock Text="Gra w statki" HorizontalAlignment="Center" FontSize="36" VerticalAlignment="Center"/>
 
-            <!--Główna siatka-->
-            <Grid x:Name="MainGrid" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+           
+            <!--Header-->
+            <Border Grid.ColumnSpan="2">
+                <DockPanel>
+                    <!--<Button x:Name="GameWindowButton" Click="GameWindowButton_Click" Content="Game widnow"/>
+                    <Button x:Name="GameOptionsButton" Click="GameOptionsButton_Click" Content="Game options button"/>
+                    <Button x:Name="CreateMapButton" Click="CreateMapButton_Click" Content="Create Map button"/>
+                    <Button Content="kliknij" Click="Button_Click"/>-->
+                    <TextBlock x:Name="Title" Text="Gra w statki" HorizontalAlignment="Center" FontSize="36" VerticalAlignment="Center"/>
+                </DockPanel>
+                
+            
+            </Border>          
+
+            <!--Czat-->
+            <Grid Margin="10" Grid.Column="1" Grid.Row="1" >
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <!--<TextBlock Grid.Row="0" FontSize="20" FontWeight="Heavy" Text="OKNO CZATU" TextAlignment="Center"/>-->
+                <!--Przyciski do zmiany okna czatu oraz przebiegu rozgrywki-->
                 <Grid>
-                    <!--Definicja kolumn-->
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    
-                    <!--Definicja wieszy-->
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="5*"/>
-                        <RowDefinition Height="3*"/>
-                    </Grid.RowDefinitions>
-                    
-                    <!--Czat (prawy gorny rog)-->
-                    <Grid Margin="10" Grid.Column="0" Grid.Row="1" >
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="*"/>                            
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>
-
-                        <TextBlock Grid.Row="0" FontSize="20" FontWeight="Heavy" Text="OKNO CZATU" TextAlignment="Center"/>
-                        <TextBox  FontSize="14" Grid.Row="1" Height="auto" Text="Andrzej: Witaj stefanie!"/>
-                        <TextBlock Grid.Row="2" FontSize="20" Text="Wiadomość:"/>
-                        <TextBox Text="Witaj Andrzeju!"  Grid.Row="3" FontSize="16"  Height="auto"/>
-                    </Grid>
-                    
-                    <!--Okno podsumowania-->
-                    <Grid Margin="10" Grid.Column="1" Grid.Row="1" >
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-
-                        <TextBlock Grid.Row="0" FontSize="20" FontWeight="Heavy" Text="Historia" TextAlignment="Center"/>
-                        <TextBox FontSize="14" Grid.Row="1" Height="auto" Text="Andrzej szczelił H3 i zatopił statek Stefana!"/>
-                    </Grid>
-                    
-                    <!--Nasza plansza-->
-                    <Grid Grid.Row="0" Grid.Column="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="2*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        
-                        <!--Podpis jakie statki nam pozostały-->
-                        <TextBlock Text="Nasze niezatopione okręty:" Grid.Column="0" Grid.Row="0" TextAlignment="Center"/>
-                        
-                        <!--Podpis do naszej planszy-->
-                        <TextBlock Text="Nasza plansza:" Grid.Column="1" Grid.Row="0" TextAlignment="Center"/>
-
-                        <!--Bedzie to nasza plansza, generowana z poziomu kodu-->
-                        <Grid Margin="5" x:Name="OurBoard" Grid.Column="1" Grid.Row="1">
-
-                        </Grid>
-                        
-                        <!--Komorka pokazujaca jakie statki nam pozostały, docelowoo moze tu byc wrappanel bądx listviev, pokazujacy po prostu jakie statki nam pozostały-->
-                        <StackPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Center">
-                            <TextBlock FontSize="16" Text="4 masztowce:   1 "/>
-                            <TextBlock FontSize="16" Text="3 masztowce:   2 "/>
-                            <TextBlock FontSize="16" Text="2 masztowce:   3 "/>
-                            <TextBlock FontSize="16" Text="1 masztowce:   4 "/>
-                        </StackPanel>
-                    </Grid>
-
-                    <!--Wroga plansza-->
-                    <Grid Grid.Row="0" Grid.Column="1">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="2*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-
-                        <!--Podpis jakie statki nam pozostały-->
-                        <TextBlock Text="Wroga niezatopione okręty:" Grid.Column="0" Grid.Row="0" TextAlignment="Center"/>
-
-                        <!--Podpis do naszej planszy-->
-                        <TextBlock Text="Wroga plansza:" Grid.Column="1" Grid.Row="0" TextAlignment="Center"/>
-
-                        <!--Bedzie to nasza plansza, generowana z poziomu kodu-->
-                        <Grid Margin="5" x:Name="EnemyBoard" Grid.Column="1" Grid.Row="1">
-
-                        </Grid>
-
-                        <!--Komorka pokazujaca jakie statki nam pozostały, docelowoo moze tu byc wrappanel bądx listviev, pokazujacy po prostu jakie statki nam pozostały-->
-                        <StackPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Center">
-                            <TextBlock FontSize="16" Text="4 masztowce:   1 "/>
-                            <TextBlock FontSize="16" Text="3 masztowce:   2 "/>
-                            <TextBlock FontSize="16" Text="2 masztowce:   3 "/>
-                            <TextBlock FontSize="16" Text="1 masztowce:   4 "/>
-                        </StackPanel>
-                    </Grid>
-
+                    <Button Margin="1 1 1 0" Content="Rozmowa" Grid.Column="0" MinHeight="40" Click="Button_Click_1"/>
+                    <Button Margin="1 1 1 0" Content="Przebieg" Grid.Column="1" MinHeight="40" Click="Button_Click"/>
                 </Grid>
-            </Grid>      
+
+                <TextBox x:FieldModifier="public" x:Name="tb_Czat" Margin="0 0 0 10" TextWrapping="Wrap" Padding="1" FontSize="14" Grid.Row="1" Height="auto" Text="Andrzej: Witaj stefanie!" Opacity="0.75"/>
+
+                <TextBlock Grid.Row="3" FontSize="20" Text="Wiadomość:"/>
+                <TextBox x:Name="tb_ToSend" Text="Witaj Andrzeju!"  Grid.Row="3" FontSize="16"  Height="auto" KeyDown="tb_ToSend_KeyDown"/>
+            </Grid>
+
+            <Frame x:Name="WindowFrame" Opacity="0.85" Grid.Column="0" Grid.Row="1" NavigationUIVisibility="Hidden" Margin="0 10 5 0"/>
+
         </Grid>
     </Border>
     

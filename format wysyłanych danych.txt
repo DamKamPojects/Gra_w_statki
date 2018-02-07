@@ -1,0 +1,15 @@
+start = sizX=10|sizY=10|ships=6,5,4,3,2,1
+ready = t/f
+msg = message
+confirmationHit = t/f|3,3|int
+hit = 3,3
+turn = 1/2
+fin
+
+
+
+start = opcje startwe: rozmiary x i y, podanie d³ugoœci statków, ready - gotowoœæ do gry
+msg = wiadomoœæ
+confirmationHit = potwierdzenie strza³u od przeciwnika do gracza|wspó³rzêdne strza³u|informacja o d³ugoœci zatopionego okrêtu; 0 dla braku zatopienia
+hit= strza³ od przeciwnika do gracza - tutaj wysy³a siê wspó³rzêdne klikniêtego przycisku
+turn = znacznik tury: tura gracza numer 1 lub 2
