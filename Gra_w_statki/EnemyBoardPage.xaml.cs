@@ -92,8 +92,12 @@ namespace Gra_w_statki
         {
             if (CanSendCordinates == true)
             {
-                //int[] cordinates = GetButtonCordinates(((Button)sender).Name);  
-                MainWindow.SendClickCordinates(((Button)sender).Name);
+                int[] cordinates = GetButtonCordinates(((Button)sender).Name);
+                if (gameBoard.GetFieldValue(cordinates) != -5 && gameBoard.GetFieldValue(cordinates) <2)
+                {
+                    MainWindow.SendClickCordinates(cordinates);
+                }
+                //MainWindow.SendClickCordinates(((Button)sender).Name);
             }
         }
 
@@ -173,6 +177,7 @@ namespace Gra_w_statki
                     {
                         return Brushes.DarkRed;
                     }
+                case 6: return Brushes.Pink;
 
                 default:
                     {
@@ -187,11 +192,16 @@ namespace Gra_w_statki
             return gameBoard.CountShips();
         }
 
-        public int CheckField(int[] cordinates)
+        public int[] GetRemainingShipsAmount()
+        {
+            return gameBoard.CountShips();
+        }
+
+        public void CheckField(int[] cordinates, int hitInformation)  //hitInformation 0-pudlo, 5-trafiony, 10 zatopiony
         {
             int FieldValue = gameBoard.GetFieldValue(cordinates);
 
-            Stack<SingleField> ChangesStack = gameBoard.GameChangeFieldValue(cordinates);
+            Stack<SingleField> ChangesStack = gameBoard.EnemyGameChangeFieldValue(cordinates,hitInformation);
             while (ChangesStack.Count != 0)
             {
                 SingleField element = ChangesStack.Pop();
@@ -199,7 +209,7 @@ namespace Gra_w_statki
                 ChangeButtonColor(element);
             }
 
-            return FieldValue;
+            //return FieldValue;
         }
 
     }

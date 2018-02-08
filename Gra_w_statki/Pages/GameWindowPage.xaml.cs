@@ -71,17 +71,19 @@ namespace Gra_w_statki
         }
 
         //3 event
-        public static void GetRemainingShips(int[] remainingShips)
+        public static void GetRemainingShips()
         {
-            EventGetRemainingShipAmount?.Invoke(remainingShips,new EventArgs());
+            EventGetRemainingShipAmount?.Invoke(null,new EventArgs());
         }
 
         public void _showAvailableShips(object sender, EventArgs e)
         {
             OurShipsStackPanel.Children.Clear(); //czyszczenie stackpanela
+            EnemyShipsStackPanel.Children.Clear(); //czyszczenie stackpanela
 
-            int[] remainingShips = _ourBoard.GetRemainingShipsAmount();
-            
+            int[] ourRemainingShips = _ourBoard.GetRemainingShipsAmount();
+            int[] enemyRemainingShips = _enemyBoard.GetRemainingShipsAmount();
+
             for (int i = 0; i < 6; i++)
             {
                 if (_eachShipAmount[i] != 0) //to oznacza że jest jakiś statek danego rodzaju
@@ -104,27 +106,66 @@ namespace Gra_w_statki
                     };
                     TextBlock ShipAmount = new TextBlock()
                     {
-                        Text = Convert.ToString(remainingShips[i]),
+                        Text = Convert.ToString(ourRemainingShips[i]),
                         FontSize = 20,
                         TextAlignment = TextAlignment.Center
                     };
 
                     ShipStackPanel.Children.Add(ShipName);
                     ShipStackPanel.Children.Add(ShipAmount);
-
                     //dodanie do glownego stack panela
                     OurShipsStackPanel.Children.Add(ShipStackPanel);
+
+
+                    //ENEMY
+                    //stack panel zawierajacy w sobie textblocki
+                    StackPanel EnemyShipStackPanel = new StackPanel()
+                    {
+                        MinWidth = 25,
+                        VerticalAlignment = VerticalAlignment.Center,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        Margin = new Thickness(5, 0, 5, 0)
+
+                    };
+
+                    TextBlock EnemyShipName = new TextBlock()
+                    {
+                        Text = (i + 1) + "-maszt.",
+                        FontSize = 14,
+                        TextAlignment = TextAlignment.Center
+                    };
+                    TextBlock EnemyShipAmount = new TextBlock()
+                    {
+                        Text = Convert.ToString(_eachShipAmount[i] -  enemyRemainingShips[i]),
+                        FontSize = 20,
+                        TextAlignment = TextAlignment.Center
+                    };
+
+                    EnemyShipStackPanel.Children.Add(EnemyShipName);
+                    EnemyShipStackPanel.Children.Add(EnemyShipAmount);
+
+                    //dodanie do glownego stack panela
+                    EnemyShipsStackPanel.Children.Add(EnemyShipStackPanel);
                 }
-            }
+            }            
         }
 
 
         //metoda sprawdzajaca czy trafiono statek
         public int CheckFieldHit(int[] cordinates)
         {
-            return _ourBoard.CheckField(cordinates);
+            int value = _ourBoard.CheckField(cordinates);
+            _showAvailableShips(null, new EventArgs());
+
+
+            return value;            
         }
-        
+
+        public void SendHitInfoToEnemyBoard(int[] cordinates, int hitInformation)
+        {
+            _enemyBoard.CheckField(cordinates, hitInformation);
+        }
+
 
     }
 }

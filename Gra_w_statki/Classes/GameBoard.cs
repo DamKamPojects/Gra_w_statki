@@ -122,7 +122,7 @@ namespace Gra_w_statki
                 {
                     if (temporaryTable[i,j]==0) //sprawdza czy dane pole zostalo juz sprawdozpne wczensiej
                     {
-                        if (_board[i, j] != 1 && _board[i,j] !=5) //sprawdza czy dane pole na planszy zaweiera statek
+                        if (_board[i, j] <1) //sprawdza czy dane pole na planszy zaweiera statek
                         {
                             temporaryTable[i, j] = 1;//1 oznacza sprawdzone pole
                         }
@@ -146,7 +146,7 @@ namespace Gra_w_statki
                                     indexY++;
                                     try
                                     {
-                                        if (_board[i,indexY] == 1)
+                                        if (_board[i,indexY] > 0)
                                         {
                                             temporaryTable[i, indexY] = 1;
                                             shipSize++;
@@ -171,7 +171,7 @@ namespace Gra_w_statki
                                     indexX++;
                                     try
                                     {
-                                        if (_board[indexX,j] == 1)
+                                        if (_board[indexX,j] >0)
                                         {
                                             temporaryTable[indexX, j] = 1;
                                             shipSize++;
@@ -240,7 +240,7 @@ namespace Gra_w_statki
                     {
                         if (_board[i, j] < 1)
                         {
-                            //_board[i, j] = 0;
+                            _board[i, j] = 0;
                             changesList.Push(new SingleField(_board[i, j], new int[] { i, j }));
                         }
                     }
@@ -276,7 +276,7 @@ namespace Gra_w_statki
                 {
                     if (temporaryTable[i, j] == 0) //sprawdza czy dane pole zostalo juz sprawdozpne wczensiej
                     {
-                        if (_board[i, j] != 5) //sprawdza czy dane pole na planszy zaweiera statek
+                        if (_board[i, j] != 5 && _board[i,j]!=10) //sprawdza czy dane pole na planszy zaweiera statek
                         {
                             temporaryTable[i, j] = 1;//1 oznacza sprawdzone pole
                         }
@@ -300,7 +300,7 @@ namespace Gra_w_statki
                                     indexY++;
                                     try
                                     {
-                                        if (_board[i, indexY] == 5)
+                                        if (_board[i, indexY] > 4)
                                         {
                                             temporaryTable[i, indexY] = 1;
                                             shipSize++;
@@ -325,7 +325,7 @@ namespace Gra_w_statki
                                     indexX++;
                                     try
                                     {
-                                        if (_board[indexX, j] == 5)
+                                        if (_board[indexX, j] > 4)
                                         {
                                             temporaryTable[indexX, j] = 1;
                                             shipSize++;
@@ -377,7 +377,7 @@ namespace Gra_w_statki
             int value = _board[x, y];
 
             Stack<SingleField> ChangesList = new Stack<SingleField>();
-
+            
             if (value==1)
             {
                 _board[x, y] = 5;
@@ -386,12 +386,13 @@ namespace Gra_w_statki
                 ChangesList = GameChangeSurroundingFieldValue(x, y, value);
                 ChangesList.Push(new SingleField(_board[x, y], new int[] { x, y }));
             }
-            else if(value<1 && value>-5) //pudło
+            else if(value<1 && value >-5) //pudło
             {
                 _board[x, y] = -5;
                 ChangesList.Push(new SingleField(_board[x, y], new int[] {x, y}));
-            }                         
+            }
 
+            //GameWindowPage.GetRemainingShips();
             return ChangesList;
         }
 
@@ -403,6 +404,8 @@ namespace Gra_w_statki
 
             if (direction==0) //jednomasztowiec
             {
+                _board[x, y] = 10;
+                changesList.Push(new SingleField(_board[x, y], new int[] { x, y }));
                 for (int i = -1; i < 2; i++)
                 {
                     for (int j = -1; j < 2; j++)
@@ -499,8 +502,15 @@ namespace Gra_w_statki
                             }
                         }                        
                     }
+
+                    for (int i = minIndex; i < maxIndex+1; i++)
+                    {
+                        _board[x, i] = 10;
+                        changesList.Push(new SingleField(_board[x + 1, i], new int[] { x + 1, i }));
+                    }
                 }
             }
+
             else if (direction == -1) //horyzontalnie polozony statek
             {
                 if (_board[x+1, y] == 1 || _board[x-1,y] == 1) //
@@ -578,9 +588,241 @@ namespace Gra_w_statki
                             }
                         }
                     }
+
+                    for (int i = minIndex; i < maxIndex + 1; i++)
+                    {
+                        _board[i, y] = 10;
+                        changesList.Push(new SingleField(_board[i, y], new int[] { i, y }));
+                    }
                 }
             }
+
+
             return changesList;
         }
+
+
+
+
+        //metody oblsugujace plansze WROGA
+        public Stack<SingleField> EnemyGameChangeFieldValue(int[] cordinates, int hitInformation)
+        {
+            //przypisanie wspolrzednych aktualnie wybranego pola; ulatwia dalsze operacje
+            int x = cordinates[0];
+            int y = cordinates[1];
+
+            Stack<SingleField> ChangesList = new Stack<SingleField>();
+
+            if (hitInformation == 5 || hitInformation == 10)//trafiono lub zatopiono
+            {
+                _board[x, y] = 5;
+
+                ChangesList = EnemyGameChangeSurroundingFieldValue(x, y, hitInformation);
+                ChangesList.Push(new SingleField(_board[x, y], new int[] { x, y }));
+            }
+            else
+            //if (hitInformation == 0)
+            {
+                _board[x, y] = -5;
+                ChangesList.Push(new SingleField(_board[x, y], new int[] { x, y }));
+            };
+            GameWindowPage.GetRemainingShips();
+            return ChangesList;
+        }
+        
+        private Stack<SingleField> EnemyGameChangeSurroundingFieldValue(int x, int y, int hitInformation)
+        {
+            Stack<SingleField> changesList = new Stack<SingleField>();
+            int direction = FindDirection(x, y);
+
+            if (hitInformation==5) //trafiono, ale nie zatopiono
+            {
+                for (int i = -1; i < 2; i = i + 2)
+                {
+                    for (int j = -1; j < 2; j = j + 2)
+                    {
+                        try
+                        {
+                            _board[x + i, y + j] = -5;
+                            changesList.Push(new SingleField(_board[x + i, y + j], new int[] { x + i, y + j }));
+                        }
+                        catch
+                        {
+
+                        }
+                    }
+                }
+            }
+            else if (hitInformation==10)
+            {
+                if (direction==1)
+                {
+                    int minIndex = y, maxIndex = y;
+                    //lewo
+                    while (true)
+                    {
+                        if (_board[x, minIndex - 1] > 0)
+                        {
+                            minIndex--;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
+                    //prawo
+                    while (true)
+                    {
+                        if (_board[x, maxIndex + 1] > 0)
+                        {
+                            maxIndex++;
+                        }
+
+                        else
+                        {
+                            break;
+                        }
+                    }
+
+                    _board[x, minIndex - 1] = -5;
+                    changesList.Push(new SingleField(_board[x, minIndex - 1], new int[] { x, minIndex - 1 }));
+
+                    _board[x, maxIndex + 1] = -5;
+                    changesList.Push(new SingleField(_board[x, maxIndex + 1], new int[] { x, maxIndex + 1 }));
+
+                    if (maxIndex + 1 < _boardDimension + 2)
+                    {
+                        _board[x, maxIndex + 1] = -5;
+                        changesList.Push(new SingleField(_board[x, maxIndex + 1], new int[] { x, maxIndex + 1 }));
+                    }
+
+                    for (int i = minIndex - 1; i < maxIndex + 2; i++)
+                    {
+                        if (i + 1 < _boardDimension + 2)
+                        {
+                            _board[x - 1, i] = -5;
+                            changesList.Push(new SingleField(_board[x - 1, i], new int[] { x - 1, i }));
+
+                            if (x + 1 < _boardDimension + 2)
+                            {
+                                _board[x + 1, i] = -5;
+                                changesList.Push(new SingleField(_board[x + 1, i], new int[] { x + 1, i }));
+                            }
+                        }
+                    }
+                }
+                else if (direction==-1)
+                {
+                    //znajduje poczatek i koniec statku
+                    int minIndex = x, maxIndex = x;
+                    //lewo
+                    while (true)
+                    {
+                        if (_board[minIndex - 1, y] > 0)
+                        {
+                            minIndex--;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+
+                    //prawo
+                    while (true)
+                    {
+                        if (_board[maxIndex + 1, y] > 0)
+                        {
+                            maxIndex++;
+                        }
+
+                        else
+                        {
+                            break;
+                        }
+                    }
+
+                    _board[minIndex - 1, y] = -5;
+                    changesList.Push(new SingleField(_board[minIndex - 1, y], new int[] { minIndex - 1, y }));
+
+                    _board[maxIndex + 1, y] = -5;
+                    changesList.Push(new SingleField(_board[maxIndex + 1, y], new int[] { maxIndex + 1, y }));
+
+                    if (maxIndex + 1 < _boardDimension + 2)
+                    {
+                        _board[maxIndex + 1, y] = -5;
+                        changesList.Push(new SingleField(_board[maxIndex + 1, y], new int[] { maxIndex + 1, y }));
+                    }
+
+                    for (int i = minIndex - 1; i < maxIndex + 2; i++)
+                    {
+                        if (i + 1 < _boardDimension + 2)
+                        {
+                            _board[i, y - 1] = -5;
+                            changesList.Push(new SingleField(_board[i, y - 1], new int[] { i, y - 1 }));
+
+                            if (y + 1 < _boardDimension + 2)
+                            {
+                                _board[i, y + 1] = -5;
+                                changesList.Push(new SingleField(_board[i, y + 1], new int[] { i, y + 1 }));
+                            }
+                        }
+                    }
+                }
+                else //jednomasztowiec
+                {
+                    for (int i = -1; i < 2; i++)
+                    {
+                        for (int j = -1; j < 2; j++)
+                        {
+                            try
+                            {
+                                if (i != 0 || j != 0)
+                                {
+                                    _board[x + i, y + j] = -5;
+                                    changesList.Push(new SingleField(_board[x + i, y + j], new int[] { x + i, y + j }));
+                                }
+                            }
+                            catch
+                            {
+
+                            }
+                        }
+                    }
+                }
+            }           
+            return changesList;
+        }
+
+        public int DidShipSunk(int[] cordinates)
+        {
+            int x = cordinates[0], y = cordinates[1];            
+
+            if (_board[x,y]>0)
+            {
+                int direction = FindDirection(cordinates[0], cordinates[1]);
+                if (direction == 0)
+                {
+                    return 2;
+                }
+                else if (direction == 1)
+                {
+                    if (_board[x, y + 1] == 1 || _board[x, y - 1] == 1)
+                    {
+                        return 1;
+                    }
+                }
+                else if (direction == -1)
+                {
+                    if (_board[x + 1, y] == 1 || _board[x - 1, y] == 1)
+                    {
+                        return 1;
+                    }
+                }
+            }            
+            return 0;
+        }
+
     }
 }

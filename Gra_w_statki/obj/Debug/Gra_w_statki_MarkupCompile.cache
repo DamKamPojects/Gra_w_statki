@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\App.xaml
-10947648067
+12560701977
 
-17-1798540094
+19-894932056
 131569487696
-EnemyBoardPage.xaml;Pages\GameWindowPage.xaml;LobbyPage.xaml;Pages\BoardPage.xaml;Pages\ConnectionPage.xaml;Pages\CreateMapPage.xaml;Pages\GameOptionsPage.xaml;MainWindow.xaml;Pages\WelcomePage.xaml;Pages\WaitingPage.xaml;
+EnemyBoardPage.xaml;Pages\GameWindowPage.xaml;LobbyPage.xaml;Pages\BoardPage.xaml;Pages\ConnectionPage.xaml;Pages\CreateMapPage.xaml;Pages\GameOptionsPage.xaml;MainWindow.xaml;Pages\WelcomePage.xaml;Pages\WaitingPage.xaml;SerwerConnectionPage.xaml;SerwerOrClientPage.xaml;
 
 False
 

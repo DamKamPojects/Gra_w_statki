@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -103,23 +104,43 @@ namespace Gra_w_statki
         {
             int[] cordinates = new int[2] {Convert.ToInt32(X.Text), Convert.ToInt32(Y.Text)};
             
-            cos.Text=gameWindowPage.CheckFieldHit(cordinates)+"ss";
+            cos.Text=gameWindowPage.CheckFieldHit(cordinates)+"";
             gameWindowPage._showAvailableShips(null, new EventArgs());
         }
 
 
 
         private static event EventHandler EventSendClickCordinates;
+        //private static event EventHandler EventRecieveChangesStack;//zmiany kolorow buttonow
 
-        public static void SendClickCordinates(string cordinates)
+
+        //tu metoda dostająca kordynaty kliknietego przycisku
+        public static void SendClickCordinates(int[] cordinates)
         {
             EventSendClickCordinates?.Invoke(cordinates, new EventArgs());
         }
 
         private void _sendClickCordinates(object sender, EventArgs e)
         {
-            cos.Text = (string)sender;
-            //tu dostajemy kordynaty klikniecia
+            _checkField(sender, new EventArgs());
         }
+
+        //event wywyłający kordynaty do sprawdzenia
+        private void _checkField(object sender, EventArgs e)
+        {            
+            
+            int value = gameWindowPage.CheckFieldHit((int[])sender);
+            cos.Text = value + "";
+            _setEnemyButtonsBoardField((int[]) sender, value);
+        }
+
+        private void _setEnemyButtonsBoardField(int[] cordinates, int hitInformation)
+        {
+            gameWindowPage.SendHitInfoToEnemyBoard(cordinates, hitInformation);
+        }
+
+
+
+
     }
 }

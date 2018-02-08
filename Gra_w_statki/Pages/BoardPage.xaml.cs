@@ -177,26 +177,12 @@ namespace Gra_w_statki
                     {
                         return Brushes.Orange;
                     }
-                //case -1:
-                //    {
-                //        return Brushes.DarkGray;
-                //    }
-                //case -2:
-                //    {
-                //        return Brushes.DimGray;
-                //    }
-                //case -3:
-                //    {
-                //        return Brushes.DarkSlateBlue;
-                //    }
-                //case -4:
-                //    {
-                //        return Brushes.Black;
-                //    }
-                case 5: //oznacza że statek został trafiony
+                case 5 : //oznacza że statek został trafiony
                     {
                         return Brushes.DarkRed;
                     }
+                case 10: return Brushes.DarkRed;
+
 
                 default:
                     {
@@ -220,11 +206,8 @@ namespace Gra_w_statki
             return gameBoard.CountDestroyedShips();
         }
                
-
         public int CheckField(int[] cordinates)
-        {
-            int FieldValue = gameBoard.GetFieldValue(cordinates);
-
+        {          
             Stack<SingleField> ChangesStack = gameBoard.GameChangeFieldValue(cordinates);
             while (ChangesStack.Count != 0)
             {
@@ -232,7 +215,7 @@ namespace Gra_w_statki
 
                 ChangeButtonColor(element);
             }
-
+            int FieldValue = gameBoard.GetFieldValue(cordinates);
             return FieldValue;
         }
     }

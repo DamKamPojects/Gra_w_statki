@@ -32,3 +32,7 @@ E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\obj\Debug\LobbyPage.g.cs
 E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\obj\Debug\LobbyPage.baml
 E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\obj\Debug\EnemyBoardPage.g.cs
 E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\obj\Debug\EnemyBoardPage.baml
+E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\obj\Debug\SerwerConnectionPage.g.cs
+E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\obj\Debug\SerwerOrClientPage.g.cs
+E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\obj\Debug\SerwerConnectionPage.baml
+E:\Nauka\Kurs C#\GitHub\Gra_w_statki\Gra_w_statki\obj\Debug\SerwerOrClientPage.baml

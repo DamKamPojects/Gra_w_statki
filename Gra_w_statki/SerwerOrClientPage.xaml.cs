@@ -24,5 +24,10 @@ namespace Gra_w_statki
         {
             InitializeComponent();
         }
+
+        private void ConnectButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
