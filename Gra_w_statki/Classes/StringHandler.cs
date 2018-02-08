@@ -16,7 +16,7 @@ namespace Gra_w_statki.Classes
 
         public delegate void UpdateTextCallback(string message);
 
-
+        
         public StringHandler(MainWindow Main, int player)
         {
             main = Main;
@@ -34,8 +34,9 @@ namespace Gra_w_statki.Classes
             bool ready = CheckReady(input);
             int turn = CheckTurn(input);
 
-            if (startingDimensions != null) InitializeBoard(startingDimensions);
-            if (startingShips != null) InitializeShips(startingShips);
+            //if (startingDimensions != null) InitializeBoard(startingDimensions);
+            //if (startingShips != null) InitializeShips(startingShips);
+            if (startingDimensions != null && startingShips != null) InitializeBoard(startingDimensions, startingShips);
             if (ready) StartGame();
             if (msg != null) ShowMessage(msg);
             if (hit != null) InterpreteHit(hit);
@@ -43,12 +44,30 @@ namespace Gra_w_statki.Classes
             if (turn != 0) InterpreteTurn(turn);
         }
 
-        
+
 
 
 
         // region zawierający metody przetwarzające nadchodzące dane
         #region Incoming Strings
+
+        public string GetNick(string line)
+        {
+            var splittedLine = line.Split(' ');
+            string output = null;
+            if (splittedLine[0] == "nick")
+            {
+                for (int i = 2; i < splittedLine.Count(); i++)
+                {
+                    output += splittedLine[i] + " ";
+                }
+
+            }
+            else return null;
+            Opponent = output;
+            return output;
+        }
+
         private string CheckMessage(string input)
         {
             var splittedLine = input.Split(' ');
@@ -88,7 +107,8 @@ namespace Gra_w_statki.Classes
             if (splittedLine[0] == "start") parameters = splittedLine[1].Split('|');
             else return null;
 
-            string[] Ships = parameters[1].Split('=')[1].Split(',');
+            //var separator = new char[] { ',' };
+            string[] Ships = parameters[1].Split('=')[1].Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
 
             return Ships;
         }
@@ -139,36 +159,59 @@ namespace Gra_w_statki.Classes
         private  void ShowMessage(string msg)
         {
             Application.Current.Dispatcher.Invoke(
-                                            new UpdateTextCallback(main.Hh),
+                                            new UpdateTextCallback(main.UpdateText),
                                             new object[] { msg + "\n" }
                                             );
            // main.tb_Czat.Text += msg;
         }
 
-        private void InitializeBoard(string startingDimensions)
-        {
-            int StartingDimensionsToSend = Convert.ToInt32(startingDimensions);
-            //wywołanie czegoś z parametrem StartingDimensionsToSend
-        }
-
-        private void InitializeShips(string[] startingShips)
+        public void InitializeBoard(string startingDimensions, string[] startingShips)
         {
             int[] intStartingShips = new int[6];
             for (int i = 0; i < startingShips.Count(); i++)
             {
                 intStartingShips[i] = Convert.ToInt32(startingShips[i]);
             }
-            //wywołanie czegoś z parametrem intStartingShips
+            int StartingDimensionsToSend = Convert.ToInt32(startingDimensions);
+            CreateMapPage.CreateNewMap(StartingDimensionsToSend, intStartingShips);
+
         }
+
+        //private void InitializeBoard(string startingDimensions)
+        //{
+        //    int StartingDimensionsToSend = Convert.ToInt32(startingDimensions);
+        //    //wywołanie czegoś z parametrem StartingDimensionsToSend
+        //}
+
+        //private void InitializeShips(string[] startingShips)
+        //{
+        //    int[] intStartingShips = new int[6];
+        //    for (int i = 0; i < startingShips.Count(); i++)
+        //    {
+        //        intStartingShips[i] = Convert.ToInt32(startingShips[i]);
+        //    }
+        //    //wywołanie czegoś z parametrem intStartingShips
+        //}
 
         private void InterpreteConfirmationHit(string[] confirmationHit)
         {
-            throw new NotImplementedException();
+            bool hit = (confirmationHit[0] == "True") ? true : false;
+            var coordsS = confirmationHit[1].Split(',');
+            int[] coords = new int[] { Convert.ToInt32(coordsS[0]), Convert.ToInt32(coordsS[1]) };
+            int sinkedSize = Convert.ToInt32(confirmationHit[2]);
+
+            /*
+             * Tutaj metoda lub event robiący coś z danymi
+             * */
         }
 
         private void InterpreteHit(string[] hit)
         {
-            throw new NotImplementedException();
+            var coords = new int[] { Convert.ToInt32(hit[0]), Convert.ToInt32(hit[1]) };
+
+            /*
+             * Tutaj metoda lub event robiący coś z danymi
+             * */
         }
 
         private void StartGame()
@@ -185,33 +228,54 @@ namespace Gra_w_statki.Classes
 
         #region Creating data to send
 
+        public string CreateNickMsg(string nick)
+        {
+            return "nick = " + nick + Environment.NewLine;
+        }
+
         public string CreateMessage(string input)
         {
             return "msg = " + Me + ": " + input + Environment.NewLine;
         }
 
-        #endregion
-
-        public string GetNick(string line)
+        public string CreateStartingParameters(int Dimensions, int[] Ships)
         {
-            var splittedLine = line.Split(' ');
-            string output = null;
-            if (splittedLine[0] == "nick")
+            var output = "start = ";
+            output += "size=" + Dimensions.ToString() + "|ships=";
+            foreach (var ship in Ships)
             {
-                for (int i = 2; i < splittedLine.Count(); i++)
-                {
-                    output += splittedLine[i] + " ";
-                }
-
+                output += ship.ToString()+",";
             }
-            else return null;
-            Opponent = output;
+            output += Environment.NewLine;
+
             return output;
         }
 
-        public string GetNickMsg(string nick)
+        public string CreateTurnChangeSignal()
         {
-            return "nick = " + nick + Environment.NewLine;
+            if (PlayerNumber == 1) return "turn = " + 2.ToString() + Environment.NewLine;
+            else return "turn = " + 1.ToString() + Environment.NewLine;
         }
+
+        public string CreateHit(int[] coords)
+        {
+            return "hit = " + coords[0].ToString() + "," + coords[1].ToString() + Environment.NewLine;
+        }
+
+        public string CreateConfirmationHit(bool hit, int[] coords, int sinkedSize)
+        {
+            return "confirmationHit = " + hit.ToString() + "|" + coords[0].ToString() + "," + coords[1].ToString() + "|" + sinkedSize.ToString() + Environment.NewLine;
+        }
+
+        public string CreateReadySignal()
+        {
+            return "ready = True" + Environment.NewLine;
+        }
+        #endregion
+
+        
+
+        
+
     }
 }

@@ -27,13 +27,13 @@
             <!--Adres IP-->
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="0">
                 <TextBlock Text="IP Serwera" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="24"/>
-                <TextBox x:Name="IPAdress" Grid.Row="1" Grid.Column="0" Padding="2" Height="48" Margin="10 10 10 0 " TextAlignment="Center" FontSize="30" MinWidth="250" MaxLength="15"/>
+                <TextBox x:Name="IPAdress" Text ="127.0.0.1"  Grid.Row="1" Grid.Column="0" Padding="2" Height="48" Margin="10 10 10 0 " TextAlignment="Center" FontSize="30" MinWidth="250" MaxLength="15"/>
             </StackPanel>
 
             <!--Numer portu-->
             <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0" Grid.Column="1">
                 <TextBlock  Grid.Column="1" Text="Port Serwera" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="24"/>
-                <TextBox x:Name="PortNumber" Grid.Row="1" Grid.Column="1" Padding="2" Height="48" Margin="10 10 10 0 " HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontSize="30" MinWidth="250" MaxLength="9"/>
+                <TextBox x:Name="PortNumber" Text="8888" Grid.Row="1" Grid.Column="1" Padding="2" Height="48" Margin="10 10 10 0 " HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" FontSize="30" MinWidth="250" MaxLength="9"/>
             </StackPanel>
 
             

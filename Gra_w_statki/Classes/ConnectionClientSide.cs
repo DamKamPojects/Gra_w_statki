@@ -23,27 +23,40 @@ namespace Gra_w_statki.Classes
         StringHandler msgHandler;
         string Opponent;
 
+        string nickname;
+        string ip;
+        string port;
+
         MainWindow main;
 
         public delegate void UpdateTextCallback(string message);
         public delegate string GetMessageToSendCallback();
+        public delegate void ClearMsgTBCallback();
 
 
-        public ConnectionClientSide(MainWindow Main)
+
+        public ConnectionClientSide(MainWindow Main, string Nickname, string Ip, string Port)
         {
 
             main = Main;
             msgHandler = new StringHandler(Main, 2);
+
+            nickname = Nickname;
+            ip = Ip;
+            port = Port;
+
             //msgHandler.Opponent = "Serwer";
-            msgHandler.Me = "KlientMe";
+            //msgHandler.Me = "KlientMe";
         }
 
         public void Connect()
         {
+            msgHandler.Me = nickname;
+
             try
             {
                 Application.Current.Dispatcher.Invoke(
-                                                          new UpdateTextCallback(main.Hh),
+                                                          new UpdateTextCallback(main.UpdateText),
                                                           new object[] { "\nNawiązywanie połączenia....." }
                                                           );                // Create one SocketPermission for socket access restrictions 
                 SocketPermission permission = new SocketPermission(
@@ -58,7 +71,7 @@ namespace Gra_w_statki.Classes
 
                 // Resolves a host name to an IPHostEntry instance            
                 //IPHostEntry ipHost = Dns.GetHostEntry("");
-                IPHostEntry ipHost = Dns.GetHostEntry("127.0.0.1"); //tutaj trzeba wpisać adres i modlić się żeby działało
+                IPHostEntry ipHost = Dns.GetHostEntry(ip); //tutaj trzeba wpisać adres i modlić się żeby działało
 
                 
 
@@ -68,7 +81,7 @@ namespace Gra_w_statki.Classes
                 // Creates a network endpoint 
                 //IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8888);
                 //IPEndPoint ipEndPoint = new IPEndPoint(ip, 8888);
-                IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 8888);
+                IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, Convert.ToInt32(port));
                 //IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 4510);
 
                 // Create one Socket object to setup Tcp connection 
@@ -85,10 +98,10 @@ namespace Gra_w_statki.Classes
                 // Establishes a connection to a remote host 
                 senderSock.Connect(ipEndPoint);
                 Application.Current.Dispatcher.Invoke(
-                                          new UpdateTextCallback(main.Hh),
+                                          new UpdateTextCallback(main.UpdateText),
                                           new object[] { "\nPołączono z: " + ipAddr.MapToIPv4().ToString() + Environment.NewLine }
                                           );
-                Send(msgHandler.GetNickMsg("Klient"));
+                Send(msgHandler.CreateNickMsg(msgHandler.Me));
 
                 while (senderSock.Connected == true)
                 {
@@ -99,6 +112,69 @@ namespace Gra_w_statki.Classes
 
         }
 
+        //public void Connect(string[] sender)
+        //{
+        //    msgHandler.Me = sender[0].ToString();
+        //    try
+        //    {
+        //        Application.Current.Dispatcher.Invoke(
+        //                                                  new UpdateTextCallback(main.UpdateText),
+        //                                                  new object[] { "\nNawiązywanie połączenia....." }
+        //                                                  );                // Create one SocketPermission for socket access restrictions 
+        //        SocketPermission permission = new SocketPermission(
+        //            NetworkAccess.Connect,    // Connection permission 
+        //            TransportType.Tcp,        // Defines transport types 
+        //            "",                       // Gets the IP addresses 
+        //            SocketPermission.AllPorts // All ports 
+        //            );
+
+        //        // Ensures the code to have permission to access a Socket 
+        //        permission.Demand();
+
+        //        // Resolves a host name to an IPHostEntry instance            
+        //        //IPHostEntry ipHost = Dns.GetHostEntry("");
+        //        IPHostEntry ipHost = Dns.GetHostEntry(sender[1].ToString()); //tutaj trzeba wpisać adres i modlić się żeby działało
+
+
+
+        //        // Gets first IP address associated with a localhost 
+        //        IPAddress ipAddr = ipHost.AddressList[0];
+
+        //        // Creates a network endpoint 
+        //        //IPEndPoint ipEndPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), 8888);
+        //        //IPEndPoint ipEndPoint = new IPEndPoint(ip, 8888);
+        //        IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, Convert.ToInt32(sender[2].ToString()));
+        //        //IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 4510);
+
+        //        // Create one Socket object to setup Tcp connection 
+        //        senderSock = new Socket(
+        //            //ip.AddressFamily,// Specifies the addressing scheme 
+        //            ipAddr.AddressFamily,// Specifies the addressing scheme 
+        //                                 //IPAddress.Parse("127.0.0.1").AddressFamily,// Specifies the addressing scheme 
+        //            SocketType.Stream,   // The type of socket  
+        //            ProtocolType.Tcp     // Specifies the protocols  
+        //            );
+
+        //        senderSock.NoDelay = false;   // Using the Nagle algorithm 
+
+        //        // Establishes a connection to a remote host 
+        //        senderSock.Connect(ipEndPoint);
+        //        Application.Current.Dispatcher.Invoke(
+        //                                  new UpdateTextCallback(main.UpdateText),
+        //                                  new object[] { "\nPołączono z: " + ipAddr.MapToIPv4().ToString() + Environment.NewLine }
+        //                                  );
+        //        Send(msgHandler.CreateNickMsg(msgHandler.Me));
+
+        //        while (senderSock.Connected == true)
+        //        {
+        //            ReceiveDataFromServer();
+        //        }
+        //    }
+        //    catch (Exception exc) { MessageBox.Show(exc.ToString()); }
+
+        //}
+
+        #region Sending Data
         public void Send()
         {
             try
@@ -107,7 +183,7 @@ namespace Gra_w_statki.Classes
                 //fin is the sign for end of data 
                 string theMessageToSend;
                 theMessageToSend = Application.Current.Dispatcher.Invoke(
-                                          new GetMessageToSendCallback(main.GetMessageClient)
+                                          new GetMessageToSendCallback(main.GetMessage)
                                           
                                           ) as string;
 
@@ -115,12 +191,17 @@ namespace Gra_w_statki.Classes
                 byte[] msg = Encoding.Unicode.GetBytes(msgHandler.CreateMessage(theMessageToSend) + "fin");
 
                 Application.Current.Dispatcher.Invoke(
-                                           new UpdateTextCallback(main.Hh),
+                                           new UpdateTextCallback(main.UpdateText),
                                            new object[] { msgHandler.Me + ": " + theMessageToSend.ToString() + Environment.NewLine }
                                            );
 
                 // Sends data to a connected Socket. 
                 int bytesSend = senderSock.Send(msg);
+
+                Application.Current.Dispatcher.Invoke(
+                                           new ClearMsgTBCallback(main.ClearMsgTB)
+                                           
+                                           );
 
                 ReceiveDataFromServer();
 
@@ -147,6 +228,28 @@ namespace Gra_w_statki.Classes
             }
             catch (Exception exc) { MessageBox.Show(exc.ToString()); }
         }
+
+        public void SendTurnChangedSignal()
+        {
+            Send(msgHandler.CreateTurnChangeSignal());
+        }
+
+        public void SendHit(int[] coords)
+        {
+            Send(msgHandler.CreateHit(coords));
+        }
+
+        public void SendConfirmationHit(bool hit, int[] coords, int sinkedSize)
+        {
+            Send(msgHandler.CreateConfirmationHit(hit, coords, sinkedSize));
+        }
+
+        public void SendReadySignal()
+        {
+            Send(msgHandler.CreateReadySignal());
+        }
+        #endregion
+
 
         private void ReceiveDataFromServer()
         {

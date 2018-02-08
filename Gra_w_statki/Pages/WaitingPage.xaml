@@ -5,18 +5,18 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Gra_w_statki"
       mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="600"
+      d:DesignHeight="500" d:DesignWidth="800"
       Title="WaitingPage">
 
-    <Grid Background="White">
+    <Grid Background="White" Loaded="Grid_Loaded">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="4*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Trwa łączenie z serwerem... 
-                   (tu tak naprawdę aplka będzie czekać na odpowiedź z serwera czy gra jest gotowa do rozpoczecia" TextWrapping="Wrap" FontSize="48" TextAlignment="Center" VerticalAlignment="Center" Margin="30"/>
-        <Button x:Name="CancelButton" Click="CancelButton_Click"  Content="Anuluj wyszukiwanie (Chwilowo przejdz dalej)" Grid.Row="1" Margin="10" FontSize="36" VerticalAlignment="Center" />
+        <TextBlock Text="Trwa łączenie z serwerem... "
+                    TextWrapping="Wrap" FontSize="48" TextAlignment="Center" VerticalAlignment="Center" Margin="30"/>
+        <Button x:Name="CancelButton" Click="CancelButton_Click"  Content="Anuluj wyszukiwanie" Grid.Row="1" Margin="10" FontSize="36" VerticalAlignment="Center" />
     </Grid>
 </Page>

@@ -24,10 +24,14 @@ namespace Gra_w_statki
         {
             InitializeComponent();
         }
-
+        public static string Nickname;
+        public static string IP;
+        public static string Port;
         private void ConnectButton_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.GetConnectionParameters(new string[] { IPAdress.Text, PlayerName.Text });
+            Nickname = PlayerName.Text;
+            IP = IPAdress.Text;
+            Port = PortNumber.Text;
             MainWindow.ChangeCurrentPage(11);
         }
     }

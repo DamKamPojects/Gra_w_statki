@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:Gra_w_statki"
       mc:Ignorable="d" 
       d:DesignHeight="400" d:DesignWidth="400"
-      Title="BoardPage">
+      Title="BoardPage"
+      >
 
     <Grid x:Name="Board">
         

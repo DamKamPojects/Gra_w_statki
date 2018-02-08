@@ -57,6 +57,15 @@
     <Compile Include="Classes\ConnectionClientSide.cs" />
     <Compile Include="Classes\ConnectionServerSide.cs" />
     <Compile Include="Classes\StringHandler.cs" />
+    <Compile Include="EnemyBoardPage.xaml.cs">
+      <DependentUpon>EnemyBoardPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\GameWindowPage.xaml.cs">
+      <DependentUpon>GameWindowPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LobbyPage.xaml.cs">
+      <DependentUpon>LobbyPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\BoardPage.xaml.cs">
       <DependentUpon>BoardPage.xaml</DependentUpon>
     </Compile>
@@ -66,7 +75,25 @@
     <Compile Include="Pages\WaitingPage.xaml.cs">
       <DependentUpon>WaitingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SingleField.cs" />
+    <Compile Include="Classes\SingleField.cs" />
+    <Compile Include="SerwerConnectionPage.xaml.cs">
+      <DependentUpon>SerwerConnectionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SerwerOrClientPage.xaml.cs">
+      <DependentUpon>SerwerOrClientPage.xaml</DependentUpon>
+    </Compile>
+    <Page Include="EnemyBoardPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\GameWindowPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LobbyPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\BoardPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -80,10 +107,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\GameOptionsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pages\GameWindowPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -106,9 +129,6 @@
     <Compile Include="Pages\GameOptionsPage.xaml.cs">
       <DependentUpon>GameOptionsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pages\GameWindowPage.xaml.cs">
-      <DependentUpon>GameWindowPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -118,6 +138,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\WaitingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SerwerConnectionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SerwerOrClientPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

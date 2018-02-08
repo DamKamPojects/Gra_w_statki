@@ -22,6 +22,9 @@ namespace Gra_w_statki
     {
         //zmienne
         GameBoard gameBoard;
+        public bool CanBeChanged = true;
+        public int BoardSize;
+        private int[] EachShipAmount;
 
         public BoardPage()
         {
@@ -31,31 +34,25 @@ namespace Gra_w_statki
         public BoardPage(int dimension)
         {
             InitializeComponent();
-            _boardSize = dimension;
-            //tworznie planszy
+            BoardSize = dimension;
+
             CreateEmptyGrid();
             FillGridWIthButtons();
 
             gameBoard= new GameBoard(dimension);
         }
 
-        private int _boardSize;
-        private int[] EachShipAmount { get; set; }
-
         
-        //Tworzenie planszy
-        
-
+        #region Tworzenie siatki z przyciskami
         //metoda tworzaca pustego grida w zaleznosci od rozmiaru planszy
         private void CreateEmptyGrid()
         {
-            for (int i = 0; i < _boardSize + 1; i++)
+            for (int i = 0; i < BoardSize + 1; i++)
             {
                 Board.RowDefinitions.Add(new RowDefinition());
                 Board.ColumnDefinitions.Add(new ColumnDefinition());
             }
         }
-
         //wypełnia grida przyciskami
         private void FillGridWIthButtons()
         {
@@ -64,7 +61,7 @@ namespace Gra_w_statki
             CreateBoardsButton FillBoard = new CreateBoardsButton();
 
             //stworzenie oznaczen osi
-            for (int i = 1; i < _boardSize + 1; i++)
+            for (int i = 1; i < BoardSize + 1; i++)
             {
                 //opisanie osi poziomej - x
                 this.Board.Children.Add(FillBoard.CreateTextBlock_X(i));
@@ -75,25 +72,29 @@ namespace Gra_w_statki
 
 
             // utworzenie buttonow
-            for (int i = 1; i < _boardSize + 1; i++)
+            for (int i = 1; i < BoardSize + 1; i++)
             {
-                for (int j = 1; j < _boardSize + 1; j++)
+                for (int j = 1; j < BoardSize + 1; j++)
                 {
                     Button FieldButton = FillBoard.CreateButton(i, j);
                     FieldButton.Click += FieldButton_Click;
                     this.Board.Children.Add(FieldButton);
                 }
             }
-        }        
-        
+        }
+        #endregion
+
+
         //I.metoda dotyczaca klikniecia przycisku
         private void FieldButton_Click(object sender, RoutedEventArgs e)
         {
-            int[] cordinates = GetButtonCordinates(((Button)sender).Name);
-            
-            BoardFieldModification(cordinates);
-            CreateMapPage.CountShips(GetShipsAmount());
+            if (CanBeChanged==true)
+            {
+                int[] cordinates = GetButtonCordinates(((Button)sender).Name);
 
+                BoardFieldModification(cordinates);
+                CreateMapPage.CountShips(GetShipsAmount());
+            }            
         }
         
         //II.wyciaga wartosc wspolrzednych dabego buttona
@@ -114,30 +115,48 @@ namespace Gra_w_statki
 
             while(ChangesStack.Count !=0)
             {
-                var element = ChangesStack.Pop();
+                SingleField element = ChangesStack.Pop();
 
-
-                string buttonName = "x" + element.Cordinates[0]+ "y" + element.Cordinates[1];
-
-                DependencyObject dependencyObject = Content as DependencyObject;
-                try
-                {
-                    Button button = LogicalTreeHelper.FindLogicalNode(dependencyObject, buttonName) as Button;
-                    button.Background = GetButtonColor(element.Value);
-                    //button.Content = Convert.ToString(element.Value);
-                    if (element.Value==0 || element.Value==1)
-                    {
-                        button.IsEnabled = true;
-                    }
-                    else
-                    {
-                        button.IsEnabled = false;
-                    }
-                }
-                catch (Exception)
-                {
-                }
+                ChangeButtonColor(element);
                 
+            }
+        }
+
+        //sprawdza wartosc przycisku o podanej nazwie
+        private void ChangeButtonColor(SingleField element)
+        {
+            string buttonName = "x" + element.Cordinates[0] + "y" + element.Cordinates[1];
+
+            //wyszukiwanie przycisku
+            DependencyObject dependencyObject = Content as DependencyObject;
+            try
+            {
+                Button button = LogicalTreeHelper.FindLogicalNode(dependencyObject, buttonName) as Button;
+                button.Background = GetButtonColor(element.Value);
+                button.Content = Convert.ToString(element.Value);
+                //if (element.Value==0 || element.Value==1)
+                //{
+                //    button.IsEnabled = true;
+                //}
+                //else
+                //{
+                //    button.IsEnabled = false;
+                //}
+            }
+            catch (Exception)
+            {
+            }
+        }
+
+        //resetuje kolory wszystkich przycisksow
+        public void PrepereButtonsForGame()
+        {
+            Stack<SingleField> ChangesStack = gameBoard.PrepereBoardForGame();
+            while (ChangesStack.Count != 0)
+            {
+                SingleField element = ChangesStack.Pop();
+
+                ChangeButtonColor(element);
             }
         }
 
@@ -153,6 +172,10 @@ namespace Gra_w_statki
                 case 1:
                     {
                         return Brushes.ForestGreen;
+                    }
+                case -5:
+                    {
+                        return Brushes.Orange;
                     }
                 //case -1:
                 //    {
@@ -170,9 +193,18 @@ namespace Gra_w_statki
                 //    {
                 //        return Brushes.Black;
                 //    }
+                case 5: //oznacza że statek został trafiony
+                    {
+                        return Brushes.DarkRed;
+                    }
+
                 default:
                     {
-                        return Brushes.Navy;
+                        if (CanBeChanged==false)
+                        {
+                            return Brushes.White;
+                        }
+                        else return Brushes.Silver;
                     }
             }
         }
@@ -183,5 +215,25 @@ namespace Gra_w_statki
             return gameBoard.CountShips();
         }
 
+        public int[] GetRemainingShipsAmount()
+        {
+            return gameBoard.CountDestroyedShips();
+        }
+               
+
+        public int CheckField(int[] cordinates)
+        {
+            int FieldValue = gameBoard.GetFieldValue(cordinates);
+
+            Stack<SingleField> ChangesStack = gameBoard.GameChangeFieldValue(cordinates);
+            while (ChangesStack.Count != 0)
+            {
+                SingleField element = ChangesStack.Pop();
+
+                ChangeButtonColor(element);
+            }
+
+            return FieldValue;
+        }
     }
 }

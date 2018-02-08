@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-E:\Dysk Google\Visual\Gra_w_statki-Page\Gra_w_statki\obj\Debug\
+E:\Dysk Google\Visual\Gra_w_statki-merginng-2\Gra_w_statki-Page\Gra_w_statki\obj\Debug\
 Gra_w_statki
 none
 false
 DEBUG;TRACE
-E:\Dysk Google\Visual\Gra_w_statki-Page\Gra_w_statki\App.xaml
-8-912574126
+E:\Dysk Google\Visual\Gra_w_statki-merginng-2\Gra_w_statki-Page\Gra_w_statki\App.xaml
+12560701977
 
-22-942627346
+261453081296
 131569487696
-Pages\BoardPage.xaml;Pages\ConnectionPage.xaml;Pages\CreateMapPage.xaml;Pages\GameOptionsPage.xaml;Pages\GameWindowPage.xaml;MainWindow.xaml;Pages\WelcomePage.xaml;Pages\WaitingPage.xaml;
+EnemyBoardPage.xaml;Pages\GameWindowPage.xaml;LobbyPage.xaml;Pages\BoardPage.xaml;Pages\ConnectionPage.xaml;Pages\CreateMapPage.xaml;Pages\GameOptionsPage.xaml;MainWindow.xaml;Pages\WelcomePage.xaml;Pages\WaitingPage.xaml;SerwerConnectionPage.xaml;SerwerOrClientPage.xaml;
 
-False
+True
 

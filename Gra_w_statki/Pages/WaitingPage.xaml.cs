@@ -15,7 +15,13 @@ namespace Gra_w_statki
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow.ChangeCurrentPage(20);
+            MainWindow.ChangeCurrentPage(12);
+        }
+
+        private void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            MainWindow.StartClient(ConnectionPage.Nickname, ConnectionPage.IP, ConnectionPage.Port);
+
         }
     }
 }
